@@ -712,7 +712,7 @@ main函数会做一些工作you know they do something maybe they
 
 179
 00:07:24,319 --> 00:07:28,080
-所以每一个处理器都有一个关联的isa
+所以每一个处理器都有一个关联的isa（指令集架构）
 
 180
 00:07:28,080 --> 00:07:32,160
@@ -976,503 +976,503 @@ main函数会做一些工作you know they do something maybe they
 
 245
 00:09:59,920 --> 00:10:01,920
-让我们的计算机能够理解C语言
+让我们的计算机
 
 246
 00:10:01,920 --> 00:10:04,880
-的基本步骤
+能够理解我们写的C代码
 
 247
 00:10:04,880 --> 00:10:06,399
-code that we're writing
+的基本步骤
 
 248
 00:10:06,399 --> 00:10:08,320
-but you'll notice that we've been
+不过，你可能注意到了
 
 249
 00:10:08,320 --> 00:10:10,399
-referring to
+在课程中
 
 250
 00:10:10,399 --> 00:10:13,680
-risk five assembly
+我们一直都有提到risc-v汇编
 
 251
 00:10:13,680 --> 00:10:15,200
-throughout the course and the processor
+以及risc-v处理器
 
 252
 00:10:15,200 --> 00:10:17,360
-is risk five and that's because
+那是因为
 
 253
 00:10:17,360 --> 00:10:19,360
-uh it's important because there's many
+额，这件事非常重要
 
 254
 00:10:19,360 --> 00:10:20,880
-different kinds of assembly so
+因为汇编语言的种类有很多
 
 255
 00:10:20,880 --> 00:10:23,360
-it's unlikely that you're using risk
+所以对于你们个人来说
 
 256
 00:10:23,360 --> 00:10:24,640
-five
+你们是不太可能用到risc-v的
 
 257
 00:10:24,640 --> 00:10:26,560
-yourself like you're not going to be
+你们不太可能会在risc-v处理器上
 
 258
 00:10:26,560 --> 00:10:27,920
-running linux on it
+运行linux
 
 259
 00:10:27,920 --> 00:10:30,959
-uh instead most modern computers will
+事实上绝大多数现代计算机
 
 260
 00:10:30,959 --> 00:10:31,360
-run
+都运行在
 
 261
 00:10:31,360 --> 00:10:34,480
-on what's called x86 or you'll sometimes
+x86处理器上
 
 262
 00:10:34,480 --> 00:10:37,760
-see it as x86 64.
+有时候你们会看到x86-64
 
 263
 00:10:37,760 --> 00:10:40,959
-and this is this is a different isa
+这是一个不同（于risc-v）的指令集架构
 
 264
 00:10:40,959 --> 00:10:42,399
-this is a different instruction set it
+这是一个不同的指令集
 
 265
 00:10:42,399 --> 00:10:44,240
-looks pretty similar to risk five
+它看起来和risc-v十分相似
 
 266
 00:10:44,240 --> 00:10:46,720
-but this is what you see in kind of your
+但这才是你们字节的个人电脑上
 
 267
 00:10:46,720 --> 00:10:50,160
-personal computers often
+常常见到的指令集
 
 268
 00:10:51,760 --> 00:10:55,120
-so if you use an intel so
+如果你们用intel的话
 
 269
 00:10:55,120 --> 00:10:58,399
-intel cpus implement x86
+intel的cpu实现了x86指令集
 
 270
 00:10:58,399 --> 00:11:02,240
-and i believe amd also do
+amd的cpu也实现了（x86指令集）
 
 271
 00:11:02,240 --> 00:11:06,560
-and this is a relatively important
+这两者（指x86与risc-v）之间
 
 272
 00:11:06,560 --> 00:11:08,160
-distinction between the two they're not
+有着相当重要的区别
 
 273
 00:11:08,160 --> 00:11:09,600
-quite as similar as they may
+乍一看很相似
 
 274
 00:11:09,600 --> 00:11:12,880
-look at first and that comes down to the
+实际上它们并没有那么相似
 
 275
 00:11:12,880 --> 00:11:15,839
-fact that risk five is what we call
+归根结底
 
 276
 00:11:15,839 --> 00:11:18,640
-as a risk the risk part of risk five
+risc-v被我们称作risc
 
 277
 00:11:18,640 --> 00:11:20,079
-refers to
+risc意为
 
 278
 00:11:20,079 --> 00:11:23,839
-a reduced instruction set and
+精简指令集
 
 279
 00:11:23,839 --> 00:11:28,079
-x86 64 is what's called a cisc
+x86-64则被称为
 
 280
 00:11:28,079 --> 00:11:32,720
-or complex instruction set
+或者说是复杂指令集
 
 281
 00:11:34,800 --> 00:11:37,920
-and there's a couple of key differences
+在它们之间
 
 282
 00:11:37,920 --> 00:11:38,640
-here one
+有一系列的不同点
 
 283
 00:11:38,640 --> 00:11:40,320
-is just the number of instructions that
+其中一点就是
 
 284
 00:11:40,320 --> 00:11:42,000
-are present in x86
+x86-64中指令的数量（与risc-v对比）
 
 285
 00:11:42,000 --> 00:11:45,120
-64 in fact one of the big motivations
+事实上
 
 286
 00:11:45,120 --> 00:11:48,240
-for writing um for for
+这一点可以大书特书
 
 287
 00:11:48,240 --> 00:11:51,279
-making risk five was how
+而在intel的手册中
 
 288
 00:11:51,279 --> 00:11:55,120
-many uh instructions we we actually have
+我们可以找到
 
 289
 00:11:55,120 --> 00:11:58,000
-in the intel kind of handbook so for
+risc要实现多少条指令
 
 290
 00:11:58,000 --> 00:11:59,120
-reference there's
+（x86-64的）参考手册（这句发言逻辑略混乱）
 
 291
 00:11:59,120 --> 00:12:02,160
-three full books
+是三本厚书
 
 292
 00:12:02,160 --> 00:12:05,600
-that encompass the isa and
+那里面包含了整个（x86-64）指令集
 
 293
 00:12:05,600 --> 00:12:08,720
-some statistics i think there's
+有统计资料表明
 
 294
 00:12:08,720 --> 00:12:11,760
-new instructions have been added at a
+自x86-64于70年代发布以来
 
 295
 00:12:11,760 --> 00:12:16,639
-rate of three instructions
+intel一直以
 
 296
 00:12:16,639 --> 00:12:21,360
-per month since x86 64 was added
+每月3条指令的速度
 
 297
 00:12:21,360 --> 00:12:24,320
-it was uh first published in the 70s so
+向x86-64指令集中添加指令
 
 298
 00:12:24,320 --> 00:12:24,800
-i
+我估计
 
 299
 00:12:24,800 --> 00:12:28,320
-believe there's like north of uh 15 000
+x86-64指令集大概有
 
 300
 00:12:28,320 --> 00:12:31,040
-instructions
+15000条指令
 
 301
 00:12:31,360 --> 00:12:35,760
-in x 86 64. and risk five on the other
+而另一方面
 
 302
 00:12:35,760 --> 00:12:37,440
-hand
+就risc-v来讲
 
 303
 00:12:37,440 --> 00:12:39,440
-the assembly for risk five can be nicely
+仅仅两份文档
 
 304
 00:12:39,440 --> 00:12:42,880
-contained within two documents and so
+就涵盖了risc-v指令的所有内容
 
 305
 00:12:42,880 --> 00:12:44,959
-kind of going off of that we don't
+我们并不打算
 
 306
 00:12:44,959 --> 00:12:45,920
-expect you
+让你们
 
 307
 00:12:45,920 --> 00:12:48,639
-in this course to memorize every single
+死记硬背课程中的
 
 308
 00:12:48,639 --> 00:12:50,399
-risk five instruction
+每一条risc-v指令
 
 309
 00:12:50,399 --> 00:12:52,720
-but if you are interested or you ever
+但如果你对这些指令感兴趣的话
 
 310
 00:12:52,720 --> 00:12:54,160
-find yourself confused by what a
+或者对某个指令感到迷惑
 
 311
 00:12:54,160 --> 00:12:55,920
-specific instruction
+。。。
 
 312
 00:12:55,920 --> 00:12:58,959
-is or does if you go to the course
+你可以到课程网站上
 
 313
 00:12:58,959 --> 00:13:00,000
-website
+。。。
 
 314
 00:13:00,000 --> 00:13:03,519
-and we look under the references tab
+在references标签下可以看到
 
 315
 00:13:03,519 --> 00:13:05,680
-under risk five we give you the links to
+在risc-v段落下我们放了一个链接
 
 316
 00:13:05,680 --> 00:13:07,440
-both the privileged
+有已获得授权的指令
 
 317
 00:13:07,440 --> 00:13:10,639
-and unprivileged instruction sets so
+也有未获得授权的指令
 
 318
 00:13:10,639 --> 00:13:12,880
-this is kind of the document
+这个文档
 
 319
 00:13:12,880 --> 00:13:15,200
-that gives you a whole bunch of
+可以给你提供一系列关于指令集架构的
 
 320
 00:13:15,200 --> 00:13:16,800
-information about the isa
+信息
 
 321
 00:13:16,800 --> 00:13:19,200
-but you'll note that like this is 240
+不过请注意这个是240页
 
 322
 00:13:19,200 --> 00:13:20,480
-pages
+。。。
 
 323
 00:13:20,480 --> 00:13:23,040
-and this is 135 pages so it's
+这个是135页
 
 324
 00:13:23,040 --> 00:13:25,360
-significantly significantly smaller
+比起x86-64指令集（的手册）
 
 325
 00:13:25,360 --> 00:13:28,800
-than uh the x86 instruction set that's
+这两份文档明显小很多
 
 326
 00:13:28,800 --> 00:13:31,839
-one of the the nice things about
+risc-v的这个特点
 
 327
 00:13:31,839 --> 00:13:36,000
-about risk five so we have
+对我们来说非常棒
 
 328
 00:13:36,000 --> 00:13:38,800
-in risk five we have uh fewer
+在risc-v中，有（比x86）更少的指令
 
 329
 00:13:38,800 --> 00:13:39,920
-instructions
+。。。
 
 330
 00:13:39,920 --> 00:13:43,040
-and not only that the instructions are
+这些指令也更简单
 
 331
 00:13:43,040 --> 00:13:44,320
-simpler
+。。。
 
 332
 00:13:44,320 --> 00:13:48,800
-so what i mean by that is that
+我之所以这么说是因为
 
 333
 00:13:48,800 --> 00:13:52,399
-there are many instructions in x8664 and
+x86-64中的指令实在太多了
 
 334
 00:13:52,399 --> 00:13:53,519
-by instruction i'm referring to
+我提到的指令就是
 
 335
 00:13:53,519 --> 00:13:55,760
-something like at or malt or sub
+像malt或者sub那样的东西
 
 336
 00:13:55,760 --> 00:13:58,720
-um in x8664 there's plenty of
+x86-64中大量的指令集完成不止一件任务
 
 337
 00:13:58,720 --> 00:14:00,079
-instructions that do
+。。。
 
 338
 00:14:00,079 --> 00:14:02,560
-more than one thing so they perform some
+它们执行了一系列
 
 339
 00:14:02,560 --> 00:14:03,920
-complicated
 
+。。。
 340
 00:14:03,920 --> 00:14:06,639
-uh set of operations and then get you
+复杂的操作
 
 341
 00:14:06,639 --> 00:14:07,360
-the result
+并给出结果
 
 342
 00:14:07,360 --> 00:14:09,519
-and that's uh not not the case with risk
+而在risc-v中就不是这样
 
 343
 00:14:09,519 --> 00:14:12,000
-five uh risk five instructions tend to
+risc-v往往
 
 344
 00:14:12,000 --> 00:14:12,399
-be
+。。。
 
 345
 00:14:12,399 --> 00:14:14,240
-smaller in scope and so they take you
+执行更少的操作
 
 346
 00:14:14,240 --> 00:14:16,000
-know it's less cycles to run each
+所以它每次的运行周期更短
 
 347
 00:14:16,000 --> 00:14:19,279
-instruction than maybe x8664 is and this
+x86-64和risc-v的差别
 
 348
 00:14:19,279 --> 00:14:21,040
-is just a trade-off that the designers
+只是设计师所做出的一种权衡
 
 349
 00:14:21,040 --> 00:14:21,920
-chose to uh
+。。。
 
 350
 00:14:21,920 --> 00:14:25,360
-chose to undertake um there's nothing
+事实上并没有。。。
 
 351
 00:14:25,360 --> 00:14:28,399
-or you know there's no
+嗯你知道的。。。
 
 352
 00:14:28,399 --> 00:14:30,480
-canonical reason why a reduced
+并没有真正意义上的
 
 353
 00:14:30,480 --> 00:14:31,519
-instruction set
+精简指令集
 
 354
 00:14:31,519 --> 00:14:34,320
-is better than you know a complex
+比复杂指令集更好的说法
 
 355
 00:14:34,320 --> 00:14:35,199
-induction
+。。。
 
 356
 00:14:35,199 --> 00:14:37,279
-instruction set they each have their own
+两种指令集都有它们各自的用途
 
 357
 00:14:37,279 --> 00:14:38,320
-uses
+。。。
 
 358
 00:14:38,320 --> 00:14:40,480
-um and so on and so forth and another
+以此类推
 
 359
 00:14:40,480 --> 00:14:42,399
-another cool thing about risk five as
+risc-v还有一个很酷的有点
 
 360
 00:14:42,399 --> 00:14:43,519
-opposed to
+与x86不同的是
 
 361
 00:14:43,519 --> 00:14:47,760
-x86 is that this is open source
+risc-v是开源的
 
 362
 00:14:47,760 --> 00:14:51,760
-so it's one of the only open source
+它是市面上仅有的开源指令集之一
 
 363
 00:14:51,760 --> 00:14:53,839
-instruction sets on the market so that
+所以这意味着
 
 364
 00:14:53,839 --> 00:14:55,760
-means anybody can develop a board for
+任何人都能用risc-v开发处理器
 
 365
 00:14:55,760 --> 00:14:57,279
-risk five
+。。。
 
 366
 00:14:57,279 --> 00:14:59,040
-and it was it came out of a research
+risc诞生于
 
 367
 00:14:59,040 --> 00:15:00,560
-project from
+
 
 368
 00:15:00,560 --> 00:15:02,720
-uc berkeley and so that's kind of where
+uc berkeley的一个项目
 
 369
 00:15:02,720 --> 00:15:04,000
-risk five started
+所以uc berkeley是其发源地
 
 370
 00:15:04,000 --> 00:15:05,440
