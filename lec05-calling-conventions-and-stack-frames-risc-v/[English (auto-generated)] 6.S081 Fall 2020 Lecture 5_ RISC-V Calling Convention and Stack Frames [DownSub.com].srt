@@ -64,7 +64,7 @@
 
 17
 00:00:35,680 --> 00:00:39,760
-那就是非常好的 
+那就是非常好的 (之后一部分为学生分享，比较难懂，可以跳过)
 
 18
 00:00:39,760 --> 00:00:40,960
@@ -344,23 +344,23 @@
 
 87
 00:03:52,879 --> 00:03:56,480
-i think i saw a lot of
+（学生）我想我应该是看到了一大堆
 
 88
 00:03:56,480 --> 00:03:58,799
-tracing for the print statements in the
+（学生）对print语句的追踪
 
 89
 00:03:58,799 --> 00:04:00,400
-kernel and then
+（学生）出现在了内核中
 
 90
 00:04:00,400 --> 00:04:03,040
-because and then i assumed that my
+（学生）嗯然后。。。
 
 91
 00:04:03,040 --> 00:04:03,760
-prints
+（学生）我猜想我的打印。。。
 
 92
 00:04:03,760 --> 00:04:06,959
@@ -476,511 +476,511 @@ printf函数应该被实现在那个文件里
 
 120
 00:05:12,479 --> 00:05:16,240
-okay well unless anybody has any other
+好的，如果
 
 121
 00:05:16,240 --> 00:05:18,800
-burning comments about uh cisco i think
+没有其他人想关于syscall实验做发言的话
 
 122
 00:05:18,800 --> 00:05:19,680
-we can
+我想我们可以
 
 123
 00:05:19,680 --> 00:05:23,440
-uh get started with lecture for today
+开始今天的课程了
 
 124
 00:05:23,440 --> 00:05:26,560
-we'll be talking a little bit about
+我们将会谈一谈
 
 125
 00:05:26,560 --> 00:05:31,680
-the uh process of converting c2 assembly
+将C转换到汇编的过程
 
 126
 00:05:31,680 --> 00:05:33,919
-and processors and this is more of kind
+以及处理器（processors），以及。。。
 
 127
 00:05:33,919 --> 00:05:35,840
-of a practical lecture today or at least
+今天的课更像是一堂实践课程
 
 128
 00:05:35,840 --> 00:05:38,320
-that's the aim so the goal here is
+至少，我们的目的在于
 
 129
 00:05:38,320 --> 00:05:42,479
-to get you all familiarized with
+让你们熟悉一下risc-v
 
 130
 00:05:42,479 --> 00:05:45,039
-risk five the processor the assembly
+熟悉一下处理器
 
 131
 00:05:45,039 --> 00:05:45,919
-language
+熟悉一下汇编语言
 
 132
 00:05:45,919 --> 00:05:48,320
-and the calling conventions for risk
+以及，熟悉一下
 
 133
 00:05:48,320 --> 00:05:49,280
-five
+risc-v中的调用约定
 
 134
 00:05:49,280 --> 00:05:51,759
-and this will be important in not not
+这些对于页表是非常重要的
 
 135
 00:05:51,759 --> 00:05:53,759
-super important for a page table but
+不，不是特别重要
 
 136
 00:05:53,759 --> 00:05:56,560
-certainly for the traps lab which is
+不过，当然了
 
 137
 00:05:56,560 --> 00:05:58,160
-will be assigned later this week this
+在这周即将布置的traps实验中
 
 138
 00:05:58,160 --> 00:05:59,919
-will be essential for
+这些将有助于调试
 
 139
 00:05:59,919 --> 00:06:01,919
-debugging and implementing things
+以及实现功能
 
 140
 00:06:01,919 --> 00:06:03,120
-because you'll be working
+因为
 
 141
 00:06:03,120 --> 00:06:05,360
-quite intimately with trap frames and
+你们接下来要做的事和陷阱框架（trap frames，译者认为可译作系统调用框架）
 
 142
 00:06:05,360 --> 00:06:07,520
-the stack and things like that
+以及栈，以及其他种种类似的东西密切相关
 
 143
 00:06:07,520 --> 00:06:08,880
-so that's the that's kind of the goal
+所以，那就是
 
 144
 00:06:08,880 --> 00:06:10,880
-for today and
+今天的目标
 
 145
 00:06:10,880 --> 00:06:13,600
-my first aim was to and this might be a
+我讲课的第一个目标是。。。嗯，这里可能
 
 146
 00:06:13,600 --> 00:06:14,880
-little bit of review
+有一些内容
 
 147
 00:06:14,880 --> 00:06:18,720
-from 6004 or any other computer
+是对6.004的复习
 
 148
 00:06:18,720 --> 00:06:20,720
-architecture theme classes that you may
+也有可能包含
 
 149
 00:06:20,720 --> 00:06:22,160
-have taken in the past
+其他的你已经学过的基础课程
 
 150
 00:06:22,160 --> 00:06:24,800
-but i just want to go over briefly kind
+我只想简单地回顾一下
 
 151
 00:06:24,800 --> 00:06:25,520
-of
+比如
 
 152
 00:06:25,520 --> 00:06:28,479
-see the c language how we get to
+看一看如何把C语言转换到
 
 153
 00:06:28,479 --> 00:06:29,759
-assembly
+汇编
 
 154
 00:06:29,759 --> 00:06:32,840
-and maybe a little bit about processor
+以及可能有一些关于处理器的知识and maybe a little bit about processor
 
 155
 00:06:32,840 --> 00:06:34,720
-so throughout and then
+然后
 
 156
 00:06:34,720 --> 00:06:36,240
-of course throughout this lecture feel
+这里提一句
 
 157
 00:06:36,240 --> 00:06:38,400
-free to interrupt uh with any
+上课时如果你有感到疑惑的地方
 
 158
 00:06:38,400 --> 00:06:41,840
-questions that you have so
+你可以随时打断我
 
 159
 00:06:41,840 --> 00:06:43,759
-uh you know we have our normal main
+嗯，你们知道的，在C当中
 
 160
 00:06:43,759 --> 00:06:45,600
-functions in c
+我们有一个main函数
 
 161
 00:06:45,600 --> 00:06:47,600
-you know they do something maybe they
+main函数会做一些工作you know they do something maybe they
 
 162
 00:06:47,600 --> 00:06:50,479
-print something
+它可能会打印些什么print something
 
 163
 00:06:50,639 --> 00:06:54,880
-then they exit and this all looks
+然后退出
 
 164
 00:06:54,880 --> 00:06:58,000
-uh well and good but as any of you are
+这看起来很不错
 
 165
 00:06:58,000 --> 00:06:59,360
-aware from 6004
+但是，你们都在6.004中学过的
 
 166
 00:06:59,360 --> 00:07:02,479
-processors don't actually understand the
+处理器
 
 167
 00:07:02,479 --> 00:07:02,720
-c
+其实并不能理解C语言
 
 168
 00:07:02,720 --> 00:07:05,039
-language rather they understand what we
+它们只能理解
 
 169
 00:07:05,039 --> 00:07:05,919
-call
+汇编语言
 
 170
 00:07:05,919 --> 00:07:07,759
-assembly or more specifically they
+或者更确切地说
 
 171
 00:07:07,759 --> 00:07:09,280
-understand the binary encodings of
+它们只能理解
 
 172
 00:07:09,280 --> 00:07:10,160
-assembly
+汇编语言的二进制码
 
 173
 00:07:10,160 --> 00:07:13,039
-and so this here i've circled a picture
+在这张图片上
 
 174
 00:07:13,039 --> 00:07:15,280
-of an actual risk five processor from a
+我在开发板中
 
 175
 00:07:15,280 --> 00:07:16,639
-sci-5 board
+圈出了risc-v处理器
 
 176
 00:07:16,639 --> 00:07:20,080
-and when we say a processor is risk 5
+当我们说某个处理器是risc-v时
 
 177
 00:07:20,080 --> 00:07:22,400
-that means that it understands the risk
+这意味着
 
 178
 00:07:22,400 --> 00:07:24,319
-5 instruction set
+它可以理解risc-v指令集
 
 179
 00:07:24,319 --> 00:07:28,080
-so every processor has an associated isa
+所以每一个处理器都有一个关联的isa
 
 180
 00:07:28,080 --> 00:07:32,160
-or instruction and that's kind of the
+或者关联的指令
 
 181
 00:07:32,160 --> 00:07:36,000
-set of instructions that make sense to
+该指令集对于该处理器来说
 
 182
 00:07:36,000 --> 00:07:37,440
-that processor so
+是有效的（可执行的）
 
 183
 00:07:37,440 --> 00:07:39,280
-every instruction has an associated
+每一个指令
 
 184
 00:07:39,280 --> 00:07:42,400
-binary encoding or an op code
+都有一个关联的二进制码或操作码
 
 185
 00:07:42,400 --> 00:07:45,039
-and when a processor is running and it
+当处理器运行时
 
 186
 00:07:45,039 --> 00:07:46,319
-sees a particular
+遇上特定格式的二进制码
 
 187
 00:07:46,319 --> 00:07:50,160
-encoding it knows what to do and so
+它就会知道执行什么操作
 
 188
 00:07:50,160 --> 00:07:52,160
-you know this processor on this board
+你知道的
 
 189
 00:07:52,160 --> 00:07:53,199
-happens to
+这个开发板上的处理器
 
 190
 00:07:53,199 --> 00:07:56,960
-understand the risk 5 assembly which is
+碰巧能够理解
 
 191
 00:07:56,960 --> 00:07:59,120
-what c code is compiled to so the
+由C语言编译出的risc-v汇编
 
 192
 00:07:59,120 --> 00:08:00,879
-general process of getting
+所以
 
 193
 00:08:00,879 --> 00:08:03,680
-c code to actually run on your processor
+让C代码在你的处理器上运行的大致步骤是
 
 194
 00:08:03,680 --> 00:08:05,039
-is we start with c
+写一段C代码
 
 195
 00:08:05,039 --> 00:08:07,120
-it gets compiled to assembly and there's
+把它编译成汇编
 
 196
 00:08:07,120 --> 00:08:08,720
-some linking and things like that that
+在这步骤之中
 
 197
 00:08:08,720 --> 00:08:10,639
-happen between the step but that's
+会有一些链接（linking）操作以及其他类似操作
 
 198
 00:08:10,639 --> 00:08:13,360
-we're not a compilers class so and then
+但是我们现在上的不是编译原理课（就不多说了）
 
 199
 00:08:13,360 --> 00:08:14,960
-the assembly will
+然后
 
 200
 00:08:14,960 --> 00:08:18,479
-then be translated into binary and so
+汇编将被翻译成二进制码
 
 201
 00:08:18,479 --> 00:08:19,039
-this is
+这就是
 
 202
 00:08:19,039 --> 00:08:22,639
-the object or
+目标文件
 
 203
 00:08:22,639 --> 00:08:26,080
-dot o files that you see
+或者说你看到的.o文件
 
 204
 00:08:26,080 --> 00:08:29,280
-so if you've ever paid attention to
+如果你曾注意到
 
 205
 00:08:29,280 --> 00:08:31,759
-what's inside of your lab directory
+你的实验文件夹里有什么
 
 206
 00:08:31,759 --> 00:08:34,000
-after you run make qmu you'll see a
+在你运行“make qemu”命令后
 
 207
 00:08:34,000 --> 00:08:36,240
-bunch of dot o files lying around
+你将会看到一连串的.o文件
 
 208
 00:08:36,240 --> 00:08:37,839
-and those are the actual object files
+这些就是目标文件
 
 209
 00:08:37,839 --> 00:08:40,958
-that the processor understands
+处理器可以理解它们
 
 210
 00:08:40,958 --> 00:08:43,279
-and the asm files you've also seen um
+还有你们已经看到的asm文件
 
 211
 00:08:43,279 --> 00:08:45,440
-you haven't really written any but
+嗯你们好像还没开始写
 
 212
 00:08:45,440 --> 00:08:48,480
-if you recall from syscall usas.pl is
+但是，你们可以回想一下
 
 213
 00:08:48,480 --> 00:08:50,680
-compiled to a file called
+有一个usas.pl文件被编译成了一个usys.s文件
 
 214
 00:08:50,680 --> 00:08:54,320
-usys.s and so dot s files
+那个.s文件里面
 
 215
 00:08:54,320 --> 00:08:57,519
-are assembly language and so you've seen
+就是汇编语言
 
 216
 00:08:57,519 --> 00:08:59,040
-you've certainly seen some risk five
+所以你们已经看到过risc-v汇编代码了
 
 217
 00:08:59,040 --> 00:09:01,040
-assembly and if you took double 04
+如果你上过6.004课程
 
 218
 00:09:01,040 --> 00:09:02,880
-i believe you you've also seen a good
+我相信你们已经看过
 
 219
 00:09:02,880 --> 00:09:05,440
-amount of assembly language
+大量的汇编代码
 
 220
 00:09:05,440 --> 00:09:08,800
-and assembly looks in general much less
+总得来说
 
 221
 00:09:08,800 --> 00:09:09,680
-structured than
+汇编的结构化程度看起来不如C语言
 
 222
 00:09:09,680 --> 00:09:11,920
-c so you'll just see lines after line
+所以你们只能一行一行的阅读
 
 223
 00:09:11,920 --> 00:09:13,040
-after line
+那些指令
 
 224
 00:09:13,040 --> 00:09:14,880
-of instructions you know you'll see
+你们会看到一些简单的玩意
 
 225
 00:09:14,880 --> 00:09:17,200
-simple things like add
+比如
 
 226
 00:09:17,200 --> 00:09:20,399
-malt etc
+抑或是malt等等
 
 227
 00:09:20,399 --> 00:09:22,720
-and so on and so forth and this doesn't
+诸如此类的非常多
 
 228
 00:09:22,720 --> 00:09:23,920
-have there's no
+在汇编中
 
 229
 00:09:23,920 --> 00:09:27,440
-um nice control flow there's no loops
+没有直观的控制流
 
 230
 00:09:27,440 --> 00:09:29,279
-there are functions but not in the sense
+没有直观的循环语句
 
 231
 00:09:29,279 --> 00:09:30,959
-that you might remember know from c
+没有像C语言中一样直观的函数
 
 232
 00:09:30,959 --> 00:09:33,040
-you know we see labels as opposed to
+你知道的，我们只能看到标签（labels）
 
 233
 00:09:33,040 --> 00:09:36,480
-true function definitions
+而不是真实的函数定义
 
 234
 00:09:36,480 --> 00:09:38,560
-and assembly so it's it's a much lower
+汇编是相当低级的语言（计算机科学层面）
 
 235
 00:09:38,560 --> 00:09:39,760
-language and there are plenty of other
+有大量的其他语言
 
 236
 00:09:39,760 --> 00:09:41,440
-languages that are also compiled to
+可以被编译成
 
 237
 00:09:41,440 --> 00:09:42,800
-assembly so
+汇编语言
 
 238
 00:09:42,800 --> 00:09:45,440
-um the same process holds true for
+嗯，这些步骤
 
 239
 00:09:45,440 --> 00:09:46,240
-things like c
+对诸如C++之类的语言
 
 240
 00:09:46,240 --> 00:09:49,519
-plus plus um
+同样适用
 
 241
 00:09:49,519 --> 00:09:51,120
-you know any any language that's
+你知道的
 
 242
 00:09:51,120 --> 00:09:53,440
-compiled will go to the same
+任何编译型语言
 
 243
 00:09:53,440 --> 00:09:56,640
-assembly language at the base
+最终在底层都会变成汇编的形式
 
 244
 00:09:56,640 --> 00:09:59,920
-and uh and so that's that's kind of the
+嗯嗯，这就是
 
 245
 00:09:59,920 --> 00:10:01,920
-basic process of getting our
+让我们的计算机能够理解C语言
 
 246
 00:10:01,920 --> 00:10:04,880
-computer to actually understand the c
+的基本步骤
 
 247
 00:10:04,880 --> 00:10:06,399
