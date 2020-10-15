@@ -33,3 +33,5 @@ Makefile会为所有内核文件做相同的操作，比如说pipe.c，会按照
 
 ![](../.gitbook/assets/image%20%2888%29.png)
 
+
+
