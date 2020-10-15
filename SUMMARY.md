@@ -18,5 +18,6 @@
   * [3.3 操作系统防御性（Defensive）](lec03-os-organization-and-system-calls/3.3-cao-zuo-xi-tong-fang-yu-xing-defensive.md)
   * [3.4 硬件对于强隔离的支持](lec03-os-organization-and-system-calls/3.4-ying-jian-dui-yu-qiang-ge-li-de-zhi-chi.md)
   * [3.5 Entering Kernel](lec03-os-organization-and-system-calls/3.5-entering-kernel.md)
-  * [3.6](lec03-os-organization-and-system-calls/3.6.md)
+  * [3.6 宏内核 vs 微内核 （Monolithic Kernel vs Micro Kernel）](lec03-os-organization-and-system-calls/3.6.md)
+  * [Untitled](lec03-os-organization-and-system-calls/untitled.md)
 
