@@ -692,7 +692,7 @@ main函数会做一些工作you know they do something maybe they
 
 174
 00:07:13,039 --> 00:07:15,280
-我在开发板中
+我在主板中
 
 175
 00:07:15,280 --> 00:07:16,639
@@ -752,7 +752,7 @@ main函数会做一些工作you know they do something maybe they
 
 189
 00:07:52,160 --> 00:07:53,199
-这个开发板上的处理器
+这个主板上的处理器
 
 190
 00:07:53,199 --> 00:07:56,960
@@ -1464,7 +1464,7 @@ risc诞生于
 
 367
 00:14:59,040 --> 00:15:00,560
-
+。。。
 
 368
 00:15:00,560 --> 00:15:02,720
@@ -1476,427 +1476,427 @@ uc berkeley的一个项目
 
 370
 00:15:04,000 --> 00:15:05,440
-and since then it's been picked up and
+从那时起
 
 371
 00:15:05,440 --> 00:15:07,839
-supported by a number of companies
+就有许多公司使用并赞助risc-v
 
 372
 00:15:07,839 --> 00:15:09,760
-uh you can find the list online but you
+你可以在网上找到名单
 
 373
 00:15:09,760 --> 00:15:11,120
-know there's tons of big companies that
+但是你知道的
 
 374
 00:15:11,120 --> 00:15:13,279
-are interested in supporting an open
+有大量的公司
 
 375
 00:15:13,279 --> 00:15:16,079
-instruction set and actually i think
+致力于赞助开源指令集
 
 376
 00:15:16,079 --> 00:15:17,760
-quite recently there was an announcement
+我记得最近
 
 377
 00:15:17,760 --> 00:15:18,720
-made by
+（某公司）
 
 378
 00:15:18,720 --> 00:15:22,320
-sci-5 who are sort of the premier
+（大概是risc-v处理器的主板制造商）
 
 379
 00:15:22,320 --> 00:15:25,279
-board manufacturer for risk 5 processors
+发布了一则公告
 
 380
 00:15:25,279 --> 00:15:26,079
-that they will
+宣称
 
 381
 00:15:26,079 --> 00:15:29,680
-be releasing a board for
+他们将发布
 
 382
 00:15:29,680 --> 00:15:31,279
-personal computers that should
+用于个人PC的主板
 
 383
 00:15:31,279 --> 00:15:32,639
-ostensibly you know a risk five
+你们懂得
 
 384
 00:15:32,639 --> 00:15:34,560
-processor designed to run linux for
+那是一个为个人PC设计的
 
 385
 00:15:34,560 --> 00:15:35,839
-personal computers
+risc-v处理器
 
 386
 00:15:35,839 --> 00:15:37,759
-and i think that that's been released in
+我记得
 
 387
 00:15:37,759 --> 00:15:39,199
-the last week or two the
+这个消息是上周发布的
 
 388
 00:15:39,199 --> 00:15:41,600
-announcement about it um so if you're if
+也可能是两周前
 
 389
 00:15:41,600 --> 00:15:43,040
-you're curious if you're
+如果你对这玩意感到好奇
 
 390
 00:15:43,040 --> 00:15:44,720
-find yourself you know absolutely you
+嗯应该会很好奇
 
 391
 00:15:44,720 --> 00:15:46,880
-know i want to use risk 5 after i finish
+上完6.s081之后我就很想用一用risc-v
 
 392
 00:15:46,880 --> 00:15:48,320
-6s081
+。。。
 
 393
 00:15:48,320 --> 00:15:50,160
-hopefully by that time there will be a
+到时候
 
 394
 00:15:50,160 --> 00:15:51,759
-processor available that you can run
+就有一个能让我们在自己的电脑上
 
 395
 00:15:51,759 --> 00:15:55,120
-linux on on your own computer
+运行linux的（risc-v）处理器了
 
 396
 00:15:55,120 --> 00:15:56,880
-but even in your day to day lives you're
+在你们的日常生活中
 
 397
 00:15:56,880 --> 00:15:59,360
-most likely using reduced instruction
+最可能使用到的就是精简指令集
 
 398
 00:15:59,360 --> 00:16:02,079
-sets even if you don't realize it so
+也许你们并没有注意到
 
 399
 00:16:02,079 --> 00:16:05,519
-the arm assembly so that's
+比如arm汇编
 
 400
 00:16:05,519 --> 00:16:09,360
-arm this is also a reduced instruction
+arm也是一个精简指令集
 
 401
 00:16:09,360 --> 00:16:11,199
-set
+。。。
 
 402
 00:16:11,199 --> 00:16:14,480
-and arm is implemented by
+高通的骁龙系列处理器
 
 403
 00:16:14,480 --> 00:16:17,759
-qualcomm the the snapdragon series of
+就是arm架构的
 
 404
 00:16:17,759 --> 00:16:19,040
-processors
+处理器
 
 405
 00:16:19,040 --> 00:16:22,800
-so if you have an android phone
+所以如果你有一个安卓手机
 
 406
 00:16:22,800 --> 00:16:26,800
-you are most likely
+你很有可能
 
 407
 00:16:26,800 --> 00:16:30,160
-running a reduced instruction set
+在使用精简指令集
 
 408
 00:16:30,160 --> 00:16:34,079
-and even if you're using ios ios i think
+即使你用的是iOS
 
 409
 00:16:34,079 --> 00:16:35,680
-i forget what the name of it is but
+iOS。。。我忘了那个（处理器的）名字。。。
 
 410
 00:16:35,680 --> 00:16:36,000
-apple
+苹果公司
 
 411
 00:16:36,000 --> 00:16:39,199
-has some has some version
+也在它们的处理器中
 
 412
 00:16:39,199 --> 00:16:41,440
-of of arm that they also implement in
+使用了某些版本的
 
 413
 00:16:41,440 --> 00:16:42,800
-their own processors
+arm架构
 
 414
 00:16:42,800 --> 00:16:46,480
-that runs on ipads iphones and most
+iPad，iPhone
 
 415
 00:16:46,480 --> 00:16:48,800
-mobile apple devices so you know reduced
+以及大多数苹果设备都运行在那个处理器上
 
 416
 00:16:48,800 --> 00:16:50,000
-instruction sets are present
+精简指令集
 
 417
 00:16:50,000 --> 00:16:51,519
-all over the place and if you're looking
+可谓到处都是
 
 418
 00:16:51,519 --> 00:16:54,800
-for a risk five in the real world
+如果你想在现实中
 
 419
 00:16:54,800 --> 00:16:58,079
-uh you know outside of your qmu
+而非qemu中找到risc-v去使用
 
 420
 00:16:58,079 --> 00:17:01,680
-you'll be able to find that in uh like
+你可以在诸如一体机（intergrated devices）上
 
 421
 00:17:01,680 --> 00:17:05,280
-integrated devices so it is present
+找到它
 
 422
 00:17:05,280 --> 00:17:07,039
-it's not as it's certainly not as
+它并不像x86-64那样
 
 423
 00:17:07,039 --> 00:17:10,240
-ubiquitous as something like x8664
+随处可见
 
 424
 00:17:10,240 --> 00:17:13,359
-but it's it's uh yes i
+但是。。嗯。。。
 
 425
 00:17:13,359 --> 00:17:15,679
-yes i think apple is as lucas just said
+我想，正如刚刚lucas在聊天中说的
 
 426
 00:17:15,679 --> 00:17:18,240
-in the chat i think apple is moving max
+我想苹果正在将macs（指mac系列PC？）
 
 427
 00:17:18,240 --> 00:17:20,559
-to arm i believe that's also the case
+迁移到arm架构
 
 428
 00:17:20,559 --> 00:17:21,839
-there's been in the last few years
+我记得应该就是这两年的事情
 
 429
 00:17:21,839 --> 00:17:23,199
-there's definitely been a push towards
+可以肯定地说
 
 430
 00:17:23,199 --> 00:17:25,919
-reduced instruction sets
+他们正朝着精简指令集发展
 
 431
 00:17:25,919 --> 00:17:28,720
-given given how big the intel isa has
+考虑到intel指令集架构
 
 432
 00:17:28,720 --> 00:17:29,440
-gotten
+如此庞大
 
 433
 00:17:29,440 --> 00:17:31,520
-and the reason why intel's isa is so big
+以及考虑到其根源and the reason why intel's isa is so big
 
 434
 00:17:31,520 --> 00:17:33,200
-is because they're
+全在于is because they're
 
 435
 00:17:33,200 --> 00:17:34,320
-very concerned with backwards
+他们非常关心very concerned with backwards
 
 436
 00:17:34,320 --> 00:17:36,799
-compatibility so if you write
+向后兼容性compatibility so if you write
 
 437
 00:17:36,799 --> 00:17:39,120
-you know a modern intel processor can
+因此即使是三四十年前的
 
 438
 00:17:39,120 --> 00:17:40,000
-run the same
+intel代码
 
 439
 00:17:40,000 --> 00:17:42,880
-instructions that intel code from you
+也可以
 
 440
 00:17:42,880 --> 00:17:43,440
-know
+。。。
 
 441
 00:17:43,440 --> 00:17:46,320
-30 40 years ago was written in so they
+在现代intel处理器上运行
 
 442
 00:17:46,320 --> 00:17:48,160
-don't really deprecate any instruction
+intel并没有删除任何指令
 
 443
 00:17:48,160 --> 00:17:49,360
-so that they maintain backwards
+所以他们（的cpu）可以保持
 
 444
 00:17:49,360 --> 00:17:50,320
-compatibility
+向后兼容性
 
 445
 00:17:50,320 --> 00:17:52,559
-and risk five is more modern so that's
+而risc-v则更为现代化
 
 446
 00:17:52,559 --> 00:17:55,200
-not a worry risk five is also so if we
+所以不用担心（risc-v会存在这些历史遗留问题）
 
 447
 00:17:55,200 --> 00:17:58,160
-jump back to those manuals risk five is
+让我们回到这些手册
 
 448
 00:17:58,160 --> 00:18:01,120
-unique in that it's divided we have
+risc-v（手册）很独特地分开了
 
 449
 00:18:01,120 --> 00:18:02,400
-what's called the base integer
+这是risc-v中的
 
 450
 00:18:02,400 --> 00:18:04,559
-instruction set which all risk five
+基整数指令集(base integer instruction)
 
 451
 00:18:04,559 --> 00:18:06,080
-processors
+额（开始混乱）
 
 452
 00:18:06,080 --> 00:18:09,039
-uh if we have fifth so gabriel asks in
+（混乱地吐槽intel中？）
 
 453
 00:18:09,039 --> 00:18:10,880
-the chat if we have 15 000 instructions
+如果处理器有15000条指令
 
 454
 00:18:10,880 --> 00:18:12,559
-is it nearly impossible to efficiently
+我们几乎不可能有效地
 
 455
 00:18:12,559 --> 00:18:13,679
-pipeline them
+在流水线上传送指令（pipeline them）
 
 456
 00:18:13,679 --> 00:18:15,600
-why do we need so many i like i was
+我们为啥需要这么多
 
 457
 00:18:15,600 --> 00:18:17,120
-saying we need so many for backwards
+我的意思是
 
 458
 00:18:17,120 --> 00:18:19,039
-compatibility reasons it's up to you to
+这么多指令只是为了向后兼容性
 
 459
 00:18:19,039 --> 00:18:20,880
-decide you know whether you
+是否使用完全取决于你自己
 
 460
 00:18:20,880 --> 00:18:22,400
-think that that's super important but
+是否觉得（向后兼容性）重要
 
 461
 00:18:22,400 --> 00:18:24,400
-many of those instructions i think a ton
+不过我估计这些指令中many of those instructions i think a ton
 
 462
 00:18:24,400 --> 00:18:25,840
-of them are also
+绝大多数of them are also
 
 463
 00:18:25,840 --> 00:18:28,000
-eaten up by cmd instructions which are
+都是cmd使用的
 
 464
 00:18:28,000 --> 00:18:28,880
-their own
+专属的
 
 465
 00:18:28,880 --> 00:18:32,320
-kind of special class of things um
+一类特殊指
 
 466
 00:18:32,320 --> 00:18:34,880
-you won't i i've never seen intel
+你不可能（会用上这些指令）
 
 467
 00:18:34,880 --> 00:18:36,720
-assembly code that makes full uses
+我从来没见过谁
 
 468
 00:18:36,720 --> 00:18:38,480
-full usage out of the 15 000
+能完全利用15000条intel指令
 
 469
 00:18:38,480 --> 00:18:40,640
-instructions but mostly this comes from
+这些指令中绝大多数的诞生
 
 470
 00:18:40,640 --> 00:18:42,320
-from a need for backwards compatibility
+都是为了满足向后兼容性的需求
 
 471
 00:18:42,320 --> 00:18:44,000
-and cmd but
+以及cmd的需求
 
 472
 00:18:44,000 --> 00:18:46,080
-like i was saying so risk five has uh
+正如我之前说的（回到正题 ）
 
 473
 00:18:46,080 --> 00:18:47,039
-what's called the base
+这个what's called the base
 
 474
 00:18:47,039 --> 00:18:50,160
-integer instruction set which uh
+基整数指令基
 
 475
 00:18:50,160 --> 00:18:52,640
-contains all of the normal add and
+包含了所有正常的像add
 
 476
 00:18:52,640 --> 00:18:53,679
@@ -1904,163 +1904,163 @@ multiply
 
 477
 00:18:53,679 --> 00:18:56,720
-things and then processors can choose to
+之类的指令
 
 478
 00:18:56,720 --> 00:18:58,559
-implement a number of other modules
+然后处理器可以选择性地实现一些其他模块
 
 479
 00:18:58,559 --> 00:19:00,400
-which you can see along the side here
+你可以在这边看到（这些模块）
 
 480
 00:19:00,400 --> 00:19:02,480
-it's probably impossible to read on your
+可能在你的屏幕上显示的并不清晰
 
 481
 00:19:02,480 --> 00:19:03,919
-screen but for example
+比如
 
 482
 00:19:03,919 --> 00:19:06,160
-if you want a processor you know that
+如果你想要一个
 
 483
 00:19:06,160 --> 00:19:07,840
-supports standard extension for single
+支持单精度浮点数的标准扩展的
 
 484
 00:19:07,840 --> 00:19:09,440
-precision floating point
+处理器
 
 485
 00:19:09,440 --> 00:19:12,160
-then you can include the f module and
+你可以导入f模块
 
 486
 00:19:12,160 --> 00:19:13,919
-this makes it easier for risk five to
+这risc-v更容易
 
 487
 00:19:13,919 --> 00:19:14,640
-support
+支持
 
 488
 00:19:14,640 --> 00:19:18,080
-um backwards compatibility because if uh
+向后兼容性
 
 489
 00:19:18,080 --> 00:19:19,760
-you can just say you know what set of
+因为你知道你导入并支持了
 
 490
 00:19:19,760 --> 00:19:22,240
-the modules do i include and support
+哪些模块
 
 491
 00:19:22,240 --> 00:19:25,360
-and the compiler can choose then the
+然后编译器可以做出选择
 
 492
 00:19:25,360 --> 00:19:27,280
-compiler can say okay you know
+编译器会说：好的
 
 493
 00:19:27,280 --> 00:19:28,960
-this processor is telling me it supports
+这个处理器告诉我
 
 494
 00:19:28,960 --> 00:19:30,799
-these modules so i can only compile this
+它支持这些模块
 
 495
 00:19:30,799 --> 00:19:33,679
-code with these modules
+所以我只可以用这些模块来编译这些代码
 
 496
 00:19:33,679 --> 00:19:36,400
-okay bibx says it seems that the only
+好的，（某学生）说看起来
 
 497
 00:19:36,400 --> 00:19:38,400
-advantage of using x86 instead of risk
+用x86处理器
 
 498
 00:19:38,400 --> 00:19:39,440
-five processors is the kind of
+代替risc-v处理器的唯一优势
 
 499
 00:19:39,440 --> 00:19:40,640
-performance you can get
+就是你可以获得性能提升
 
 500
 00:19:40,640 --> 00:19:42,559
-however that performance comes as a
+然鹅这些性能提升
 
 501
 00:19:42,559 --> 00:19:44,000
-massive cost and complexity and
+带来了大量的代价与复杂性
 
 502
 00:19:44,000 --> 00:19:45,280
-potential security
+以及潜在安全问题
 
 503
 00:19:45,280 --> 00:19:46,880
-my question is why are we still using
+我的问题是为什么我们仍然在用x86
 
 504
 00:19:46,880 --> 00:19:48,799
-x86 instead of moving to something like
+而非迁移到其他处理器架构
 
 505
 00:19:48,799 --> 00:19:50,000
-risk five
+比如risc-v
 
 506
 00:19:50,000 --> 00:19:52,720
-uh well the big answer is that is the
+嗯好的，主要原因是
 
 507
 00:19:52,720 --> 00:19:54,720
-world has run on x86
+整个世界一直在使用x86
 
 508
 00:19:54,720 --> 00:19:57,679
-for i i don't have a great answer for
+（大概有多少年）我太记得清了
 
 509
 00:19:57,679 --> 00:19:58,400
-why
+。。。
 
 510
 00:19:58,400 --> 00:20:02,000
-risk five is pretty modern too so
+risc-v也是非常现代化的
 
 511
 00:20:02,000 --> 00:20:04,320
-the world as a whole pretty much runs on
+整个世界一直都在用x86
 
 512
 00:20:04,320 --> 00:20:06,159
-x86 so if you suddenly
+如果突然地
 
 513
 00:20:06,159 --> 00:20:09,919
-start converting your processors
+开始把处理器都换成risc-v
 
 514
 00:20:09,919 --> 00:20:14,000
-to risk five you run the risk of uh
+这会带来很大的风险
 
 515
 00:20:14,000 --> 00:20:16,240
-you know losing support for a bunch of
+这会使得很多重要的东西
 
 516
 00:20:16,240 --> 00:20:17,440
-important things
+失去支持
 
 517
 00:20:17,440 --> 00:20:19,760
