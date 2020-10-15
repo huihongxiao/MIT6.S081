@@ -19,5 +19,17 @@
 
 首先，Makefile会读取一个C文件，例如proc.c；之后调用gcc编译器，生成一个文件叫做proc.s，这是RISC-V 汇编语言；之后再走到汇编解释器，生成proc.o，这是汇编语言的二进制格式。
 
-![](../.gitbook/assets/image%20%2890%29.png)
+![](../.gitbook/assets/image%20%2891%29.png)
+
+Makefile会为所有内核文件做相同的操作，比如说pipe.c，会按照同样的套路，先经过gcc编译成pipe.s，再通过汇编解释器生成pipe.o。
+
+![](../.gitbook/assets/image%20%2892%29.png)
+
+之后，系统加载器（Loader）会收集所有的.o文件，将它们链接在一起，并生成内核文件。
+
+![](../.gitbook/assets/image%20%2894%29.png)
+
+这里生成的内核文件就是我们运行的文件。同时，为了你们的方便，Makefile还会创建kernel.asm，这里包含了内核的完整汇编语言，你们可以通过查看它来定位究竟是哪个指令导致了Bug。比如，我接下来查看kernel.asm文件，我们可以看到用汇编语言描述的内核：
+
+![](../.gitbook/assets/image%20%2888%29.png)
 
