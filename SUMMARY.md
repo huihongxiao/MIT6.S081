@@ -21,4 +21,5 @@
   * [3.6 宏内核 vs 微内核 （Monolithic Kernel vs Micro Kernel）](lec03-os-organization-and-system-calls/3.6.md)
   * [3.7 编译运行kernel](lec03-os-organization-and-system-calls/untitled.md)
   * [3.8 QEMU](lec03-os-organization-and-system-calls/3.8-qemu.md)
+  * [3.9](lec03-os-organization-and-system-calls/3.9.md)
 
