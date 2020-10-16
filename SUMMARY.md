@@ -19,5 +19,6 @@
   * [3.4 硬件对于强隔离的支持](lec03-os-organization-and-system-calls/3.4-ying-jian-dui-yu-qiang-ge-li-de-zhi-chi.md)
   * [3.5 Entering Kernel](lec03-os-organization-and-system-calls/3.5-entering-kernel.md)
   * [3.6 宏内核 vs 微内核 （Monolithic Kernel vs Micro Kernel）](lec03-os-organization-and-system-calls/3.6.md)
-  * [3.7 kernel的编译运行](lec03-os-organization-and-system-calls/untitled.md)
+  * [3.7 编译运行kernel](lec03-os-organization-and-system-calls/untitled.md)
+  * [3.8 QEMU](lec03-os-organization-and-system-calls/3.8-qemu.md)
 

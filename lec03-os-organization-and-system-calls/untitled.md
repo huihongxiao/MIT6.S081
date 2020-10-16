@@ -1,4 +1,4 @@
-# 3.7 kernel的编译运行
+# 3.7 编译运行kernel
 
 接下来我会切换到代码介绍，来看一下XV6是如何工作的。
 
@@ -41,7 +41,7 @@ Makefile会为所有内核文件做相同的操作，比如说pipe.c，会按照
 
 接下来，让我们不带gdb运行XV6，我会编译一些文件，然后调用QEMU（qemu-system-riscv64指令）。这里本质上是通过C语言来模拟仿真RISC-V处理器。
 
-![](../.gitbook/assets/image%20%28100%29.png)
+![](../.gitbook/assets/image%20%28101%29.png)
 
 我们来看传给QEMU的几个参数：
 
@@ -58,7 +58,7 @@ Makefile会为所有内核文件做相同的操作，比如说pipe.c，会按照
 
 对于RISC-V，有完整的文档介绍，比如说下图是一个RISC-V的结构图：
 
-![](../.gitbook/assets/image%20%2899%29.png)
+![](../.gitbook/assets/image%20%28100%29.png)
 
 这个图里面有：
 
