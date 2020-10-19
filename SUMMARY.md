@@ -22,6 +22,8 @@
   * [3.7 编译运行kernel](lec03-os-organization-and-system-calls/untitled.md)
   * [3.8 QEMU](lec03-os-organization-and-system-calls/3.8-qemu.md)
   * [3.9 XV6 启动过程](lec03-os-organization-and-system-calls/3.9.md)
+* [Lec05 Calling conventions and stack frames RISC-V](lec05-calling-conventions-and-stack-frames-risc-v)
+  * [5.1 课程简介](lec05-calling-conventions-and-stack-frames-risc-v/5.1-introduction-to-lecture05.md)
 * [Lec06 Isolation & system call entry/exit \(Robert\)](lec06-isolation-and-system-call-entry-exit-robert/README.md)
   * [6.1](lec06-isolation-and-system-call-entry-exit-robert/6.1.md)
 
