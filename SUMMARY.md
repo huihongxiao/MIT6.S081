@@ -27,6 +27,7 @@
   * [4.2 地址空间（Address Spaces）](lec04-page-tables-frans/4.2-di-zhi-kong-jian-address-spaces.md)
   * [4.3 页表（Page Table）](lec04-page-tables-frans/4.3-ye-biao-page-table.md)
   * [4.4 页表缓存（Translation Lookaside Buffer）](lec04-page-tables-frans/4.4-ye-biao-huan-cun-translation-lookaside-buffer.md)
+  * [4.5 Kernel Page Table](lec04-page-tables-frans/4.5-kernel-page-table.md)
 * [Lec05 Calling conventions and stack frames RISC-V](lec05-calling-conventions-and-stack-frames-risc-v/README.md)
   * [5.1 课程简介](lec05-calling-conventions-and-stack-frames-risc-v/5.1-introduction-to-lecture05.md)
 * [Lec06 Isolation & system call entry/exit \(Robert\)](lec06-isolation-and-system-call-entry-exit-robert/README.md)
