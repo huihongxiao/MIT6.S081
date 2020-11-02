@@ -36,4 +36,5 @@
 * [Lec06 Isolation & system call entry/exit \(Robert\)](lec06-isolation-and-system-call-entry-exit-robert/README.md)
   * [6.1 Trap机制](lec06-isolation-and-system-call-entry-exit-robert/6.1.md)
   * [6.2 Trap代码执行流程](lec06-isolation-and-system-call-entry-exit-robert/6.2-trap-dai-ma-zhi-hang-liu-cheng.md)
+  * [6.3](lec06-isolation-and-system-call-entry-exit-robert/6.3.md)
 
