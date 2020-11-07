@@ -36,5 +36,7 @@
 * [Lec06 Isolation & system call entry/exit \(Robert\)](lec06-isolation-and-system-call-entry-exit-robert/README.md)
   * [6.1 Trap机制](lec06-isolation-and-system-call-entry-exit-robert/6.1.md)
   * [6.2 Trap代码执行流程](lec06-isolation-and-system-call-entry-exit-robert/6.2-trap-dai-ma-zhi-hang-liu-cheng.md)
-  * [6.3](lec06-isolation-and-system-call-entry-exit-robert/6.3.md)
+  * [6.3 ECALL指令之前的状态](lec06-isolation-and-system-call-entry-exit-robert/6.3.md)
+  * [6.4 ECALL指令之后的状态](lec06-isolation-and-system-call-entry-exit-robert/6.4-ecall-zhi-ling-zhi-hou-de-zhuang-tai.md)
+  * [6.5 XV6如何保存用户寄存器](lec06-isolation-and-system-call-entry-exit-robert/6.5-xv6-ru-he-bao-cun-yong-hu-ji-cun-qi.md)
 
