@@ -39,4 +39,5 @@
   * [6.3 ECALL指令之前的状态](lec06-isolation-and-system-call-entry-exit-robert/6.3.md)
   * [6.4 ECALL指令之后的状态](lec06-isolation-and-system-call-entry-exit-robert/6.4-ecall-zhi-ling-zhi-hou-de-zhuang-tai.md)
   * [6.5 uservec函数](lec06-isolation-and-system-call-entry-exit-robert/6.5-xv6-ru-he-bao-cun-yong-hu-ji-cun-qi.md)
+  * [6.6 usertrap函数](lec06-isolation-and-system-call-entry-exit-robert/6.6-usertrap-han-shu.md)
 
