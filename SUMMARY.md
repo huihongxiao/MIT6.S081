@@ -41,4 +41,5 @@
   * [6.5 uservec函数](lec06-isolation-and-system-call-entry-exit-robert/6.5-xv6-ru-he-bao-cun-yong-hu-ji-cun-qi.md)
   * [6.6 usertrap函数](lec06-isolation-and-system-call-entry-exit-robert/6.6-usertrap-han-shu.md)
   * [6.7 usertrapret函数](lec06-isolation-and-system-call-entry-exit-robert/6.7-usertrapret-han-shu.md)
+  * [6.8 userret函数](lec06-isolation-and-system-call-entry-exit-robert/6.8-userret-han-shu.md)
 
