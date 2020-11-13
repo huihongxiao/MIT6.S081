@@ -32,7 +32,7 @@
   * [4.7 kvminithart 函数](lec04-page-tables-frans/4.7-kvminithart.md)
   * [4.8 walk 函数](lec04-page-tables-frans/4.8-walk-han-shu.md)
 * [Lec05 Calling conventions and stack frames RISC-V \(TA\)](lec05-calling-conventions-and-stack-frames-risc-v/README.md)
-  * [5.1 课程简介](lec05-calling-conventions-and-stack-frames-risc-v/5.1-introduction-to-lecture05.md)
+  * [5.1 C程序到汇编程序的转换](lec05-calling-conventions-and-stack-frames-risc-v/5.1-introduction-to-lecture05.md)
 * [Lec06 Isolation & system call entry/exit \(Robert\)](lec06-isolation-and-system-call-entry-exit-robert/README.md)
   * [6.1 Trap机制](lec06-isolation-and-system-call-entry-exit-robert/6.1.md)
   * [6.2 Trap代码执行流程](lec06-isolation-and-system-call-entry-exit-robert/6.2-trap-dai-ma-zhi-hang-liu-cheng.md)
