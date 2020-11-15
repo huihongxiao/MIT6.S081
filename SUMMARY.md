@@ -37,6 +37,7 @@
   * [5.3 gdb和汇编代码执行](lec05-calling-conventions-and-stack-frames-risc-v/5.3-gdb-he-hui-bian-dai-ma-zhi-hang.md)
   * [5.4 RISC-V寄存器](lec05-calling-conventions-and-stack-frames-risc-v/untitled.md)
   * [5.5 Stack](lec05-calling-conventions-and-stack-frames-risc-v/5.5-stack.md)
+  * [5.6 Struct](lec05-calling-conventions-and-stack-frames-risc-v/5.6-struct.md)
 * [Lec06 Isolation & system call entry/exit \(Robert\)](lec06-isolation-and-system-call-entry-exit-robert/README.md)
   * [6.1 Trap机制](lec06-isolation-and-system-call-entry-exit-robert/6.1.md)
   * [6.2 Trap代码执行流程](lec06-isolation-and-system-call-entry-exit-robert/6.2-trap-dai-ma-zhi-hang-liu-cheng.md)
