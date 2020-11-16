@@ -7,7 +7,7 @@
 * demand paging
 * memory mapped files
 
-![](../.gitbook/assets/image%20%28299%29.png)
+![](../.gitbook/assets/image%20%28300%29.png)
 
 你懂的，几乎所有稍微正经的操作系统都实现了这些功能。如果你去看Linux，你会发现所有的这些功能都被实现了。然而在XV6，实话实说，一个这样的功能都没实现。在XV6中，一旦用户空间进程触发了page fault会导致进程被杀掉，这样的处理方式并不新鲜。
 
@@ -24,5 +24,15 @@
 
 目前来说，这里的地址映射相对来说比较静态。不管是user还是kernel page table，我们在最开始的时候设置好，kernel就不会再对page table做任何事情了。
 
-![](../.gitbook/assets/image%20%28225%29.png)
+![](../.gitbook/assets/image%20%28222%29.png)
+
+而page fault可以让这里的地址映射关系变得动态，通过page fault，内核可以更新内存地址映射关系，这是一个非常强大的功能。如果能结合page table和page fault，内核将会有巨大的灵活性，因为你可以动态的更新虚拟地址这一层抽象。
+
+我们接下来会看各种各样如何利用动态重映射或者动态变更page table来实现有趣功能。
+
+
+
+首先，我们需要思考的是，什么样的信息是必须的。当发生page fault时，内核需要什么样的信息才能够响应page fault。
+
+* 很明显的，我们需要出错的虚拟地址，或者是触发page fault的源。可以假设的是，你们在page fault lab中已经看过一些相关的panic。内核是能够知道出错的虚拟地址的，当出现page fault的时候，内核会打印出错的虚拟地址，并且这个地址会被保存在STVAL寄存器中。所以，当一个用户应用程序触发了page fault，page fault会使用
 
