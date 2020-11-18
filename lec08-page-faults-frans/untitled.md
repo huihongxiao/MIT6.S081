@@ -1,4 +1,4 @@
-# Untitled
+# 8.1 Page fault简介
 
 今天的课程内容是page fault，以及通过page fault实现的一些列虚拟内存功能。这里相关的功能有：
 
@@ -7,7 +7,7 @@
 * demand paging
 * memory mapped files
 
-![](../.gitbook/assets/image%20%28301%29.png)
+![](../.gitbook/assets/image%20%28303%29.png)
 
 你懂的，几乎所有稍微正经的操作系统都实现了这些功能。如果你去看Linux，你会发现所有的这些功能都被实现了。然而在XV6，实话实说，一个这样的功能都没实现。在XV6中，一旦用户空间进程触发了page fault会导致进程被杀掉，这样的处理方式并不新鲜。
 
@@ -39,7 +39,15 @@
 
 ![](../.gitbook/assets/image%20%28259%29.png)
 
-* 我们或许想要知道的第三个信息是触发page fault的指令的地址。从上节课可以知道，作为trap处理代码的一部分，这个地址存放在SEPC（Supervisor Exception Program Counter）寄存器，并保存在trapframe中。trapframe-&gt;
+* 我们或许想要知道的第三个信息是触发page fault的指令的地址。从上节课可以知道，作为trap处理代码的一部分，这个地址存放在SEPC（Supervisor Exception Program Counter）寄存器，并保存在trapframe-&gt;epc中。
 
+所以，从硬件和XV6的角度来说，当出现了page fault，我们现在有了3个对我们来说极其有价值的信息，分别是：
 
+* 引起page fault的内存地址
+* 引起page fault的原因类型
+* 引起page fault时的程序计数器值，这表明了page fault在用户空间发生的位置
+
+![](../.gitbook/assets/image%20%28295%29.png)
+
+我们之所以关心引起page fault时的程序计数器值的原因是，在page fault handler中我们或许想要修复page table，并重新执行对应的指令。理想情况下，修复完page table之后，指令就可以无错误的运行了。所以，能够恢复因为page fault中断的指令运行是很重要的。
 
