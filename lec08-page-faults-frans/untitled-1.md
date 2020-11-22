@@ -2,11 +2,11 @@
 
 我们首先来看一下allocation，或者更具体的说sbrk。sbrk是XV6提供的系统调动，它使得用户应用程序能扩大自己的heap。当一个应用程序启动的时候，sbrk指向的是heap的最底端，stack的最顶端。同时这也是_p-&gt;sz_指向的位置。
 
-![](../.gitbook/assets/image%20%28321%29.png)
+![](../.gitbook/assets/image%20%28328%29.png)
 
 当调用sbrk时，它的参数是整数，代表了你想要申请的page数量。sbrk会扩展stack的上边界（也就是会扩大stack）。
 
-![](../.gitbook/assets/image%20%28318%29.png)
+![](../.gitbook/assets/image%20%28325%29.png)
 
 这意味着，当sbrk实际发生或者被调用的时候，内核会分配一些物理内存，并将这些内存映射到用户应用程序的地址空间，然后将内存内容初始化为0，再返回sbrk系统调用。这样，应用程序可以通过多次调用sbrk系统调用来增加它所需要的内存。类似的，应用程序还通过给sbrk传入负数作为参数，来减少或者压缩它的地址空间。现在我们只关注增加地址空间的场景。
 
@@ -16,7 +16,7 @@
 
 所以，当我们看到了一个page fault，相应的虚拟地址小于当前_p-&gt;sz_，同时大于stack，那么我们就知道这是一个来自于heap的地址，但是内核还没有分配任何物理内存。所以对于这个page fault的响应也理所当然直接明了：在page fault handler中，通过kalloc函数分配一个内存page；初始化这个page；将这个page映射到user page table中；最后重新执行指令。比方说，如果是load指令，或者store指令要访问属于当前进程但是还未被分配的内存，在我们映射完新申请的物理内存page之后，重新执行指令应该就能通过了。
 
-![](../.gitbook/assets/image%20%28260%29.png)
+![](../.gitbook/assets/image%20%28266%29.png)
 
 > 学生提问：在eager allocation的场景，一个进程可能消耗了太多的内存进而耗尽了物理内存资源。如果我们不使用eager allocation，而是使用lazy allocation，应用程序怎么才能知道当前已经没有物理内存可用了？
 >
@@ -36,15 +36,15 @@
 
 我们首先要修改的是sys\_sbrk函数，sys\_sbrk会完成实际增加应用程序的地址空间，分配内存等等一系列相关的操作。
 
-![](../.gitbook/assets/image%20%28238%29.png)
+![](../.gitbook/assets/image%20%28241%29.png)
 
 这里我们要修改这个函数，让它只对p-&gt;sz加n，并不执行增加内存的操作。
 
-![](../.gitbook/assets/image%20%28274%29.png)
+![](../.gitbook/assets/image%20%28281%29.png)
 
 所以这里，只会对虚拟地址空间增加n。之后启动XV6，并且执行“echo hi”，我们会得到一个page fault。
 
-![](../.gitbook/assets/image%20%28273%29.png)
+![](../.gitbook/assets/image%20%28280%29.png)
 
 之所以会得到一个page fault是因为，Shell会先fork一个进程，子进程会通过exec执行echo（注，详见1.9）。在这个过程中，Shell会申请一些内存，所以Shell会调用sys\_sbrk，然后就出错了（注，因为前面修改了代码，调用sys\_sbrk不会实际分配所需要的内存）。
 
@@ -52,7 +52,7 @@
 
 我们可以查看Shell的汇编代码，这是由makefile创建的。我们搜索SEPC对应的地址，可以看到这的确是一个store指令。这看起来就是我们出现page fault的位置。
 
-![](../.gitbook/assets/image%20%28319%29.png)
+![](../.gitbook/assets/image%20%28326%29.png)
 
 如果我们向前看看汇编代码，我们可以看到这里实际上是在malloc实现的代码中。这也非常合理，在malloc的实现中，我们使用sbrk系统调用来获得一些内存，之后会初始化我们刚刚获取到的内存，在0x12a4位置，我们向size字段写入一些数据，但是现在我们实际上在向未被分配的内存写入数据。
 
@@ -62,7 +62,7 @@
 
 首先查看trap.c中的usertrap函数，usertrap在lec06中有介绍。在usertrap中根据不同的SCAUSE完成不同的操作。
 
-![](../.gitbook/assets/image%20%28322%29.png)
+![](../.gitbook/assets/image%20%28329%29.png)
 
 在lec06中，我们是因为SCAUSE == 8进入的trap，这是我们处理普通系统调用的代码。如果不是SCAUSE不等于8，会检查是否有任何的设备中断，之后会处理相关的设备中断。如果两个条件都不满足，这里会打印一些信息，并且杀掉进程。
 
@@ -72,13 +72,13 @@
 
 这是一种处理方式。这里我会以演示为目的简单的处理一下，在lazy lab中你们需要完成更多的工作。（注，下图中多了一个“} else {”）
 
-![](../.gitbook/assets/image%20%28331%29.png)
+![](../.gitbook/assets/image%20%28339%29.png)
 
 首先，打印一些调试信息。之后分配一个物理内存page，如果ka等于0，表明没有物理内存我们现在OOM了，我们会杀掉进程。如果有物理内存，首先会将内存内容设置为0，之后将物理内存page指向用户地址空间中合适的虚拟内存地址。具体来说，我们将物理内存page指向向下取整的虚拟地址。所以，这里引起page fault的地址是0x4008，物理内存page对应的虚拟地址是0x4000。之后需要设置常用的权限标志位，也就是u，w，r bit位。
 
 接下来运行一些这部分代码。重新编译XV6，再执行“echo hi”，我们或许可以乐观的认为现在可以正常工作了。
 
-![](../.gitbook/assets/image%20%28271%29.png)
+![](../.gitbook/assets/image%20%28278%29.png)
 
 但是实际上并没有正常工作。我们这里有两个page fault，第一个对应的虚拟内存地址是0x4008，但是很明显在处理这个page fault时，我们有另一个page fault 0x13f48。现在唯一的问题是，uvmunmap在报错，一些它尝试unmap的page并没有map上。这里可能的原因是什么？你认为我们这里看到panic的原因是什么？这里unmap的内存是什么？
 
@@ -86,15 +86,15 @@
 
 是的，完全正确。这里unmap的是之前lazy allocated，但是又还没有用到的地址。所以对于这个内存，并没有对应的物理内存。所以在这里，当PTE的v标志位为0，还没有对应的mapping，这并不是一个实际的panic。这是我们预期的行为。
 
-![](../.gitbook/assets/image%20%28225%29.png)
+![](../.gitbook/assets/image%20%28227%29.png)
 
 实际上，对于这个page我们并不用做任何事情，我们可以直接continue跳到下一个page。
 
-![](../.gitbook/assets/image%20%28240%29.png)
+![](../.gitbook/assets/image%20%28246%29.png)
 
 接下来，我们再重新编译XV6，并执行“echo hi”。
 
-![](../.gitbook/assets/image%20%28289%29.png)
+![](../.gitbook/assets/image%20%28297%29.png)
 
 现在我们可以看到2个page fault，但是echo hi正常工作了。现在，我们一定程度上有了最基本最简单的lazy allocation。这里有什么问题吗？
 
@@ -107,4 +107,8 @@
 > Frans教授：为什么之前的panic会存在？对于未修改的XV6，永远也不会出现用户内存未map的情况，所以一旦出现这种情况需要panic。但是现在我们更改了XV6，所以我们需要去掉这里的panic，因为之前的不可能变成了可能。
 
 这部分内容对于下一个实验有很大的帮助，实际上这是下一个实验3个部分中的一个，但是很明显这部分不足以完成下一个lazy lab。我们这里做了一些修改，但是很多地方还是有可能出错。就像有人提到的，我这里并没有检查触发page fault的虚拟地址是否小于p-&gt;sz。还有其他的可能出错的地方吗？
+
+> 学生回答：通过sbrk增加的用户进程的内存数是一个整型数而不是一个无符号整型数，可能会传入负数。
+
+是的，可能会使用负数，这意味着缩小用户内存。当我们在缩小用户内存时，我们也需要小心一些。实际上，在一个操作系统中，我们可能在各种各样的用户场景使用这里的PTE，对于所有的这些用户场景我们或许需要稍微修改XV6，这就是接下来的lazy lab的内容，完成足够好的工作这样你才能通过所有的测试用例。
 

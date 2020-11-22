@@ -50,4 +50,6 @@
 * [Lec08 Page faults\(Frans\)](lec08-page-faults-frans/README.md)
   * [8.1 Page fault Basics](lec08-page-faults-frans/untitled.md)
   * [8.2 Lazy page allocation](lec08-page-faults-frans/untitled-1.md)
+  * [8.3](lec08-page-faults-frans/8.3.md)
+  * [8.4 Copy on write fork](lec08-page-faults-frans/8.4-copy-on-write-fork.md)
 
