@@ -7,7 +7,7 @@
 * demand paging
 * memory mapped files
 
-![](../.gitbook/assets/image%20%28335%29.png)
+![](../.gitbook/assets/image%20%28337%29.png)
 
 你懂的，几乎所有稍微正经的操作系统都实现了这些功能。比如Linux就实现了所有的这些功能。然而在XV6中，实话实说，一个这样的功能都没实现。在XV6中，一旦用户空间进程触发了page fault，会导致进程被杀掉，这种处理方式并不新鲜。
 
@@ -43,7 +43,7 @@ page fault可以让这里的地址映射关系变得动态起来。通过page fa
 * 引起page fault的原因类型
 * 引起page fault时的程序计数器值，这表明了page fault在用户空间发生的位置
 
-![](../.gitbook/assets/image%20%28324%29.png)
+![](../.gitbook/assets/image%20%28326%29.png)
 
 我们之所以关心触发page fault时的程序计数器值的原因是，在page fault handler中我们或许想要修复page table，并重新执行对应的指令。理想情况下，修复完page table之后，指令就可以无错误的运行了。所以，能够恢复因为page fault中断的指令运行是很重要的。
 
