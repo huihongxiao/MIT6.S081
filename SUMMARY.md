@@ -54,4 +54,6 @@
   * [8.4 Copy On Write Fork](lec08-page-faults-frans/8.4-copy-on-write-fork.md)
   * [8.5 Demand Paging](lec08-page-faults-frans/8.5-demand-paging.md)
   * [8.6 Memory Mapped Files](lec08-page-faults-frans/untitled-2.md)
+* [Lec09 Interrupts](lec09-interrupts/README.md)
+  * [Untitled](lec09-interrupts/untitled.md)
 
