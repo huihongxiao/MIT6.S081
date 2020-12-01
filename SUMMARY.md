@@ -56,5 +56,6 @@
   * [8.6 Memory Mapped Files](lec08-page-faults-frans/untitled-2.md)
 * [Lec09 Interrupts（Frans）](lec09-interrupts/README.md)
   * [9.1 TOP查看内存信息](lec09-interrupts/untitled.md)
-  * [9.2](lec09-interrupts/9.2.md)
+  * [9.2 Interrupt硬件部分](lec09-interrupts/9.2.md)
+  * [Untitled](lec09-interrupts/untitled-1.md)
 
