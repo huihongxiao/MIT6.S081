@@ -59,5 +59,6 @@
   * [9.2 Interrupt硬件部分](lec09-interrupts/9.2.md)
   * [9.3 设备驱动概述](lec09-interrupts/untitled-1.md)
   * [9.4 键盘输入 -&gt; console输出](lec09-interrupts/9.4-jian-pan-shu-ru-console-shu-chu.md)
-  * [Untitled](lec09-interrupts/untitled-2.md)
+  * [9.5 XV6设置中断](lec09-interrupts/untitled-2.md)
+  * [Untitled](lec09-interrupts/untitled-3.md)
 
