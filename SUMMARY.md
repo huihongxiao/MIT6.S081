@@ -57,5 +57,7 @@
 * [Lec09 Interrupts（Frans）](lec09-interrupts/README.md)
   * [9.1 TOP查看内存信息](lec09-interrupts/untitled.md)
   * [9.2 Interrupt硬件部分](lec09-interrupts/9.2.md)
-  * [Untitled](lec09-interrupts/untitled-1.md)
+  * [9.3 设备驱动概述](lec09-interrupts/untitled-1.md)
+  * [9.4 键盘输入 -&gt; console输出](lec09-interrupts/9.4-jian-pan-shu-ru-console-shu-chu.md)
+  * [Untitled](lec09-interrupts/untitled-2.md)
 
