@@ -1,4 +1,4 @@
-# Untitled
+# 9.6 Shell将字符输出到UART
 
 接下来我想看一下如何从Shell程序输出提示符“$”。首先我们看init.c中的main函数，这是第一个运行的进程。
 
@@ -30,11 +30,17 @@ Shell程序首先打开文件描述符0，1，2。之后Shell向文件描述符2
 
 这里先通过either\_copyin将字符拷入，之后调用uartputc函数。这里将字符写入和UART设备，所以你可以认为console是一个UART驱动的top部分。uart.c文件中的uartputc函数会实际的打印字符。
 
-![](../.gitbook/assets/image%20%28384%29.png)
+![](../.gitbook/assets/image%20%28385%29.png)
 
-uartputc函数会稍微有趣一些。在UART的内部会有一个buffer用来发送数据，buffer的大小是32个字符。同时还有一个读指针和写指针，来构建一个环形的buffer。
+uartputc函数会稍微有趣一些。在UART的内部会有一个buffer用来发送数据，buffer的大小是32个字符。同时还有一个为消费者提供的读指针和为生产者提供的写指针，来构建一个环形的buffer。
 
 ![](../.gitbook/assets/image%20%28370%29.png)
 
-在我们的例子中，使用的是写指针。
+在我们的例子中，Shell是生产者，所以需要调用uartputc函数。在函数中第一件事情是判断环形buffer是否已经满了。如果读写指针相同，那额buffer是空的，如果写指针加1等于读指针，那么buffer满了。当buffer是满的时候，向其写入数据是没有意义的，所以这里会sleep一段时间，将CPU出让给其他进程。当然，对于我们来说，buffer必然不是满的，因为提示符“$”是我们送出的第一个字符。所以代码会走到else，字符会被送到buffer中，更新写指针，之后再调用uartstart函数。
+
+![](../.gitbook/assets/image%20%28381%29.png)
+
+uartstart就是通知设备执行操作。首先是检查当前设备是否空闲，如果空闲的话，我们会从buffer中读出数据，然后将数据写入到THR（Transmission Holding Register）发送寄存器。这里相当于告诉设备，我这里有一个字节需要你来发送。一旦数据送到了设备，系统调用会返回，用户应用程序Shell就可以继续执行。这里从内核返回到用户空间的机制与lec06的trap机制是一样的。
+
+与此同时，UART设备会将数据送出。在某个时间点，我们会收到中断，因为我们之前设置了要处理UART设备中断。接下来我们看一下，当发生中断时，实际会发生什么。
 
