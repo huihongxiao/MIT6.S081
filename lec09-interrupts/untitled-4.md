@@ -12,13 +12,13 @@
 
 接下来看一下trap.c文件中的usertrap函数，我们在lec06和lec08分别在这个函数中处理了系统调用和page fault。今天我们将要看一下如何处理中断。
 
-![](../.gitbook/assets/image%20%28387%29.png)
+![](../.gitbook/assets/image%20%28389%29.png)
 
 在trap.c的devintr函数中，首先会通过SCAUSE寄存器判断当前中断是否是来自于外设的中断。如果是的话，再调用plic\_claim函数来获取中断。
 
-![](../.gitbook/assets/image%20%28399%29.png)
+![](../.gitbook/assets/image%20%28401%29.png)
 
-![](../.gitbook/assets/image%20%28398%29.png)
+![](../.gitbook/assets/image%20%28400%29.png)
 
 plic\_claim函数位于plic.c文件中。在这个函数中，当前CPU核会告知PLIC，自己要获得中断，PLIC\_SCLAIM会将中断号返回，对于UART来说，返回的中断号是10。
 
@@ -26,7 +26,7 @@ plic\_claim函数位于plic.c文件中。在这个函数中，当前CPU核会告
 
 从devintr函数可以看出，如果是UART中断，那么会调用uartintr函数。位于uart.c文件的uartintr函数，会从UART的接受寄存器中读取数据，之后将获取到的数据传递给consoleintr函数。哦，不好意思，我搞错了。我们现在讨论的是向UART发送数据。因为我们现在还没有通过键盘输入任何数据，所以UART的接受寄存器现在为空。
 
-![](../.gitbook/assets/image%20%28385%29.png)
+![](../.gitbook/assets/image%20%28387%29.png)
 
 所以代码会直接运行到uartstart函数，这个函数会将Shell存储在buffer中的任意字符送出。实际上在提示符“$”之后，还有一个空格字符，write系统调用可以在UART发送提示符“$”的同时，并发的将空格字符写入。所以UART的发送中断触发时，可以发现在buffer中还有一个空格字符，之后会将这个空格字符送出。
 

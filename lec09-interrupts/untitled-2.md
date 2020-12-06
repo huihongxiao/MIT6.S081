@@ -12,7 +12,7 @@ RISC-V有对于中断的许多支持。首先是一些中断相关的寄存器�
 
 接下来看看代码，首先是位于start.c的start函数。
 
-![](../.gitbook/assets/image%20%28379%29.png)
+![](../.gitbook/assets/image%20%28380%29.png)
 
 这里将所有的中断都设置在Supervisor mode，然后设置SIE寄存器来接收External，软件和定时器中断，之后初始化定时器。
 
@@ -22,11 +22,11 @@ RISC-V有对于中断的许多支持。首先是一些中断相关的寄存器�
 
 我们第一个外设是console，这是我们print的输出位置。查看位于console.c的consoleinit函数。
 
-![](../.gitbook/assets/image%20%28392%29.png)
+![](../.gitbook/assets/image%20%28394%29.png)
 
 这里首先初始化了锁，我们现在还不关心这个锁。然后调用了uartinit。uartinit函数位于uart.c文件。这个函数实际上就是配置好UART芯片使其可以被使用。
 
-![](../.gitbook/assets/image%20%28393%29.png)
+![](../.gitbook/assets/image%20%28395%29.png)
 
 这里的流程是先关闭中断，之后设置波特率，设置字符长度为8bit，重置FIFO，最后再重新打开中断。
 
@@ -36,7 +36,7 @@ RISC-V有对于中断的许多支持。首先是一些中断相关的寄存器�
 
 以上就是uartinit函数，运行完这个函数之后，原则上UART就可以生成中断了。但是因为我们还没有对PLIC编程，所以中断不能被CPU感知。最终，在main函数中，需要调用plicinit函数。下图是plicinit函数。
 
-![](../.gitbook/assets/image%20%28378%29.png)
+![](../.gitbook/assets/image%20%28379%29.png)
 
 PLIC与外设一样，也占用了一个I/O地址（0xC000\_0000）。代码的第一行使能了UART的中断，这里实际上就是设置PLIC会接收哪些中断，进而将中断路由到CPU。类似的，代码的第二行设置PLIC接收来自IO磁盘的中断，我们这节课不会介绍这部分内容。
 
@@ -48,11 +48,11 @@ main函数中，plicinit之后就是plicinithart函数。plicinit是由0号CPU�
 
 到目前为止，我们有了生成中断的设备，我们有了PLIC可以传递中断到单个的CPU。但是CPU自己还没有设置好接收中断，因为我们还没有设置好SSTATUS寄存器。在main函数的最后，程序调用了scheduler函数，
 
-![](../.gitbook/assets/image%20%28391%29.png)
+![](../.gitbook/assets/image%20%28393%29.png)
 
 scheduler函数主要是运行进程。但是在实际运行进程之前，会执行intr\_on函数来使得CPU能接收中断。
 
-![](../.gitbook/assets/image%20%28397%29.png)
+![](../.gitbook/assets/image%20%28399%29.png)
 
 intr\_on函数只完成一件事情，就是设置SSTATUS寄存器，打开中断标志位。
 
