@@ -1,10 +1,10 @@
-# Untitled
+# 9.8 UART读取键盘输入
 
 在UART的另一侧，会有类似的事情发生，有时Shell会调用read从键盘中读取字符。 在read系统调用的底层，会调用fileread函数。在这个函数中，如果读取的文件类型是设备，会调用相应设备的read函数。
 
 ![](../.gitbook/assets/image%20%28392%29.png)
 
-在我们的例子中，就是console.c文件中的consoleread函数。
+在我们的例子中，read函数就是console.c文件中的consoleread函数。
 
 ![](../.gitbook/assets/image%20%28397%29.png)
 
@@ -12,13 +12,13 @@
 
 ![](../.gitbook/assets/image%20%28382%29.png)
 
-从consoleread函数中可以看出，当读指针和写指针一样时，说明buffer为空，进程会sleep。所以Shell在打印完“$ ”之后会sleep，直到有一个字符输入。所以在某个时间点，假设用户通过键盘输入了“l”，这会导致“l”被发送到主板上的UART芯片，产生中断之后再被PLIC路由到某个CPU核，之后会触发devintr函数，devintr可以发现这是一个UART中断，然后通过uartgetc函数获取到相应的字符，之后再将字符传递给consoleintr函数。
+从consoleread函数中可以看出，当读指针和写指针一样时，说明buffer为空，进程会sleep。所以Shell在打印完“$ ”之后，如果键盘没有输入，Shell进程会sleep，直到键盘有一个字符输入。所以在某个时间点，假设用户通过键盘输入了“l”，这会导致“l”被发送到主板上的UART芯片，产生中断之后再被PLIC路由到某个CPU核，之后会触发devintr函数，devintr可以发现这是一个UART中断，然后通过uartgetc函数获取到相应的字符，之后再将字符传递给consoleintr函数。
 
 ![](../.gitbook/assets/image%20%28378%29.png)
 
-默认情况下，字符会通过consputc，输出到console上给用户查看。之后，字符被存放在buffer中。在遇到换行符的时候，唤醒之前等待的进程。等待的进程会从buffer中将数据读出。
+默认情况下，字符会通过consputc，输出到console上给用户查看。之后，字符被存放在buffer中。在遇到换行符的时候，唤醒之前sleep的进程，也就是Shell，再从buffer中将数据读出。
 
-所以这里也是通过buffer将consumer和producer之间解耦了，这样它们才能按照自己的速度，独立的并行运行。如果某一个运行的过快了，那么buffer要么是满的要么是空的，其中一个会sleep并等待另一个追上来。
+所以这里也是通过buffer将consumer和producer之间解耦，这样它们才能按照自己的速度，独立的并行运行。如果某一个运行的过快了，那么buffer要么是满的要么是空的，consumer和producer其中一个会sleep并等待另一个追上来。
 
 
 

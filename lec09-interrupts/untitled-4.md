@@ -1,12 +1,12 @@
-# 9.7 UART将字符输出到Console
+# 9.6 UART驱动的bottom部分
 
-在我们向console输出字符时，如果发生了中断，RISC-V会做什么操作？我们之前已经在SSTATUS寄存器中打开了中断，所以处理器会被中断。假设键盘生成了一个中断并且发向了PLIC，PLIC将中断路由给了我一个特定的CPU核，并且这个CPU核设置了SIE寄存器的bit（注，针对外部中断的E bit位），那么会发生以下事情：
+在我们向Console输出字符时，如果发生了中断，RISC-V会做什么操作？我们之前已经在SSTATUS寄存器中打开了中断，所以处理器会被中断。假设键盘生成了一个中断并且发向了PLIC，PLIC会将中断路由给一个特定的CPU核，并且如果这个CPU核设置了SIE寄存器的E bit（注，针对外部中断的bit位），那么会发生以下事情：
 
-* 首先，程序会清除SIE寄存器相应的bit，这样可以阻止CPU核被其他中断打扰，该CPU核可以专心处理当前中断。处理完成之后，可以再次恢复SIE寄存器相应的bit。
-* 之后，程序会设置SEPC寄存器为当前的程序计数器。我们假设Shell正在用户空间运行，突然来了一个中断，那么当前Shell的程序计数器会被保存。
-* 之后，程序要保存当前的mode。在我们的例子里面，因为当前运行的是Shell程序，所以会记录user mode。1
+* 首先，会清除SIE寄存器相应的bit，这样可以阻止CPU核被其他中断打扰，该CPU核可以专心处理当前中断。处理完成之后，可以再次恢复SIE寄存器相应的bit。
+* 之后，会设置SEPC寄存器为当前的程序计数器。我们假设Shell正在用户空间运行，突然来了一个中断，那么当前Shell的程序计数器会被保存。
+* 之后，要保存当前的mode。在我们的例子里面，因为当前运行的是Shell程序，所以会记录user mode。
 * 再将mode设置为Supervisor mode。
-* 最后将程序计数器的值设置成STVEC的值。（注，STVEC用来保存trap处理程序的地址，详见lec06）在XV6中，STVEC保存的要么是uservec或者kernelvec函数的地址，具体取决于发生中断时是在用户空间还是内核空间。在我们的例子中，Shell运行在用户空间，所以STVEC保存的是uservec函数的地址。而从之前的课程我们可以知道uservec函数会调用usertrap函数。所以最终，我们在usertrap函数中。我们这节课不会介绍trap过程中的拷贝，恢复过程，因为在之前的课程中已经详细的介绍过了。
+* 最后将程序计数器的值设置成STVEC的值。（注，STVEC用来保存trap处理程序的地址，详见lec06）在XV6中，STVEC保存的要么是uservec或者kernelvec函数的地址，具体取决于发生中断时程序运行是在用户空间还是内核空间。在我们的例子中，Shell运行在用户空间，所以STVEC保存的是uservec函数的地址。而从之前的课程我们可以知道uservec函数会调用usertrap函数。所以最终，我们在usertrap函数中。我们这节课不会介绍trap过程中的拷贝，恢复过程，因为在之前的课程中已经详细的介绍过了。
 
 ![](../.gitbook/assets/image%20%28376%29.png)
 
@@ -16,11 +16,9 @@
 
 在trap.c的devintr函数中，首先会通过SCAUSE寄存器判断当前中断是否是来自于外设的中断。如果是的话，再调用plic\_claim函数来获取中断。
 
-![](../.gitbook/assets/image%20%28401%29.png)
-
 ![](../.gitbook/assets/image%20%28400%29.png)
 
-plic\_claim函数位于plic.c文件中。在这个函数中，当前CPU核会告知PLIC，自己要获得中断，PLIC\_SCLAIM会将中断号返回，对于UART来说，返回的中断号是10。
+plic\_claim函数位于plic.c文件中。在这个函数中，当前CPU核会告知PLIC，自己要处理中断，PLIC\_SCLAIM会将中断号返回，对于UART来说，返回的中断号是10。
 
 ![](../.gitbook/assets/image%20%28372%29.png)
 
@@ -28,9 +26,25 @@ plic\_claim函数位于plic.c文件中。在这个函数中，当前CPU核会告
 
 ![](../.gitbook/assets/image%20%28387%29.png)
 
-所以代码会直接运行到uartstart函数，这个函数会将Shell存储在buffer中的任意字符送出。实际上在提示符“$”之后，还有一个空格字符，write系统调用可以在UART发送提示符“$”的同时，并发的将空格字符写入。所以UART的发送中断触发时，可以发现在buffer中还有一个空格字符，之后会将这个空格字符送出。
+所以代码会直接运行到uartstart函数，这个函数会将Shell存储在buffer中的任意字符送出。实际上在提示符“$”之后，Shell还会输出一个空格字符，write系统调用可以在UART发送提示符“$”的同时，并发的将空格字符写入到buffer中。所以UART的发送中断触发时，可以发现在buffer中还有一个空格字符，之后会将这个空格字符送出。
+
+这样，驱动的top部分和bottom部分就解耦开了。
 
 > 学生提问： UART对于键盘来说很重要，来自于键盘的字符通过UART走到CPU再到我们写的代码。但是我不太理解UART对于Shell输出字符究竟有什么作用？因为在这个场景中，并没有键盘的参与。
 >
-> Frans教授：显示设备与UART也是相关的。所以UART连接了两个设备，一个是键盘，另一个是显示设备，也就是Console。QEMU也是通过模拟的UART与Console进行交互，而Console的作用就是将字符在显示器上画出来。
+> Frans教授：显示设备与UART也是相连的。所以UART连接了两个设备，一个是键盘，另一个是显示设备，也就是Console。QEMU也是通过模拟的UART与Console进行交互，而Console的作用就是将字符在显示器上画出来。
+
+（注，以下问答来自课程结束部分，与本节内容时间上并不连续）
+
+> 学生提问：uartinit只被调用了一次，所以才导致了所有的CPU核都共用一个buffer吗？
+>
+> Frans教授：因为只有一个UART设备，一个buffer只针对一个UART设备，而这个buffer会被所有的CPU核共享，这样运行在多个CPU核上的多个程序可以同时向Console打印输出，而驱动中是通过锁来确保多个CPU核上的程序串行的向Console打印输出。
+>
+> 学生提问：我们之所以需要锁是因为有多个CPU核，但是却只有一个Console，对吧？
+>
+> Frans教授：是的，如我们之前说的驱动的top和bottom部分可以并行的运行。所以一个CPU核可以执行uartputc函数，而另个一CPU核可以执行uartintr函数，我们需要确保它们是串行执行的，而锁确保了这一点。
+>
+> 学生提问：那是不是意味着，某个时间，其他所有的CPU核都需要等待某一个CPU核的处理？
+>
+> Frans教授：这里并不是死锁。其他的CPU核还是可以在等待的时候运行别的进程。
 
