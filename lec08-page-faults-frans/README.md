@@ -1,4 +1,4 @@
-# Lec08 Page faults\(Frans\)
+# Lec08 Page faults \(Frans\)
 
 准备工作，阅读【1】中4.6节
 
