@@ -14,5 +14,5 @@
 
 所以对于一个高性能的网卡，如果有大量的包要传入，那么应该用polling。对于一些精心设计的驱动，它们会在polling和Interrupt之间动态切换（注，也就是网卡的NAPI）。
 
-![](../.gitbook/assets/image%20%28381%29.png)
+![](../.gitbook/assets/image%20%28383%29.png)
 
