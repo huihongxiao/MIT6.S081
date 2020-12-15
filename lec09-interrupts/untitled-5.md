@@ -6,15 +6,15 @@
 * 中断会停止当前运行的程序。例如，Shell正在运行第212个指令，突然来了个中断，Shell的执行会立即停止。对于用户空间代码，这并不是一个大的问题，因为当我们从中断中返回时，我们会恢复用户空间代码，并继续执行执行停止的指令。我们已经在trap和page fault中看过了这部分内容。但是当内核被中断打断时，事情就不一样了。所以，代码运行在kernel mode也会被中断，这意味着即使是内核代码，也不是直接串行运行的。在两个内核指令之间，取决于中断是否打开，可能会被中断打断执行。对于一些代码来说，如果不能在执行期间被中断，这时内核需要临时关闭中断，来确保这段代码的原子性。
 * 驱动的top和bottom部分是并行运行的。例如，Shell会在传输完提示符“$”之后再调用write系统调用传输空格字符，代码会走到UART驱动的top部分（注，uartputc函数），将空格写入到buffer中。但是同时在另一个CPU核，可能会收到来自于UART的中断，进而执行UART驱动的bottom部分，查看相同的buffer。所以一个驱动的top和bottom部分可以并行的在不同的CPU上运行。这里我们通过lock来管理并行。因为这里有共享的数据，我们想要buffer在一个时间只被一个CPU核所操作。 
 
-![](../.gitbook/assets/image%20%28416%29.png)
+![](../.gitbook/assets/image%20%28421%29.png)
 
 这里我将会关注在第一点，也就是producer/consumser并发。这是驱动中的非常常见的典型现象。如你们所见的，在驱动中会有一个buffer，在我们之前的例子中，buffer是32字节大小。并且有两个指针，分别是读指针和写指针。
 
-![](../.gitbook/assets/image%20%28368%29.png)
+![](../.gitbook/assets/image%20%28369%29.png)
 
 如果两个指针相等，那么buffer是空的。当Shell调用uartputc函数时，会将字符，例如提示符“$”，写入到写指针的位置，并将写指针加1。这就是producer对于buffer的操作。
 
-![](../.gitbook/assets/image%20%28396%29.png)
+![](../.gitbook/assets/image%20%28401%29.png)
 
 producer可以一直写入数据，直到写指针 + 1等于读指针，因为这时，buffer已经满了。当buffer满了的时候，producer必须停止运行。我们之前在uartputc函数中看过，如果buffer满了，代码会sleep，暂时搁置Shell并运行其他的进程。
 

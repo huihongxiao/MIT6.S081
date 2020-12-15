@@ -8,17 +8,17 @@
 
 每个主机上会有不同的应用程序，或许其中一个主机有网络流量器，另一个主机有HTTP server，它们需要通过这个局域网来相互通信。
 
-![](../.gitbook/assets/image%20%28409%29.png)
+![](../.gitbook/assets/image%20%28414%29.png)
 
 一个局域网的大小是有极限的。局域网（Local Area Network）通常简称为LAN。一个局域网需要能让其中的主机都能收到彼此发送的packet。有时，主机需要广播packet到所有局域网中的主机。当局域网中只有25甚至100个主机时，是没有问题的。但是你不能构建一个超过几百个主机的局域网。
 
 所以为了解决这个问题，大型的局域网是这样构建的。首先有多个独立的局域网，假设其中一个局域网是MIT，另一个局域网是Harvard，还有一个很远的局域网是Stanford，在这些局域网之间会有一些设备连接，这些设备通常是路由器Router。其中一个Router接入到了MIT的局域网，同时也接入到了Harvard的局域网。
 
-![](../.gitbook/assets/image%20%28386%29.png)
+![](../.gitbook/assets/image%20%28389%29.png)
 
 路由器是组成互联网的核心，路由器之间的链路，最终将多个局域网连接在了一起。
 
-![](../.gitbook/assets/image%20%28410%29.png)
+![](../.gitbook/assets/image%20%28415%29.png)
 
 现在MIT有一个主机需要与Stanford的一个主机通信，他们之间需要经过一系列的路由器，路由器之间的转发称为Routing。所以我们需要有一种方法让MIT的主机能够寻址到Stanford的主机，并且我们需要让连接了MIT的路由器能够在收到来自MIT的主机的packet时能够知道，这个packet是给Harvard的还是给Stanford的。
 
