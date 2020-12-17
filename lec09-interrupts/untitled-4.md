@@ -8,23 +8,23 @@
 * 再将mode设置为Supervisor mode。
 * 最后将程序计数器的值设置成STVEC的值。（注，STVEC用来保存trap处理程序的地址，详见lec06）在XV6中，STVEC保存的要么是uservec或者kernelvec函数的地址，具体取决于发生中断时程序运行是在用户空间还是内核空间。在我们的例子中，Shell运行在用户空间，所以STVEC保存的是uservec函数的地址。而从之前的课程我们可以知道uservec函数会调用usertrap函数。所以最终，我们在usertrap函数中。我们这节课不会介绍trap过程中的拷贝，恢复过程，因为在之前的课程中已经详细的介绍过了。
 
-![](../.gitbook/assets/image%20%28387%29.png)
+![](../.gitbook/assets/image%20%28388%29.png)
 
 接下来看一下trap.c文件中的usertrap函数，我们在lec06和lec08分别在这个函数中处理了系统调用和page fault。今天我们将要看一下如何处理中断。
 
-![](../.gitbook/assets/image%20%28413%29.png)
+![](../.gitbook/assets/image%20%28415%29.png)
 
 在trap.c的devintr函数中，首先会通过SCAUSE寄存器判断当前中断是否是来自于外设的中断。如果是的话，再调用plic\_claim函数来获取中断。
 
-![](../.gitbook/assets/image%20%28436%29.png)
+![](../.gitbook/assets/image%20%28438%29.png)
 
 plic\_claim函数位于plic.c文件中。在这个函数中，当前CPU核会告知PLIC，自己要处理中断，PLIC\_SCLAIM会将中断号返回，对于UART来说，返回的中断号是10。
 
-![](../.gitbook/assets/image%20%28382%29.png)
+![](../.gitbook/assets/image%20%28383%29.png)
 
 从devintr函数可以看出，如果是UART中断，那么会调用uartintr函数。位于uart.c文件的uartintr函数，会从UART的接受寄存器中读取数据，之后将获取到的数据传递给consoleintr函数。哦，不好意思，我搞错了。我们现在讨论的是向UART发送数据。因为我们现在还没有通过键盘输入任何数据，所以UART的接受寄存器现在为空。
 
-![](../.gitbook/assets/image%20%28410%29.png)
+![](../.gitbook/assets/image%20%28412%29.png)
 
 所以代码会直接运行到uartstart函数，这个函数会将Shell存储在buffer中的任意字符送出。实际上在提示符“$”之后，Shell还会输出一个空格字符，write系统调用可以在UART发送提示符“$”的同时，并发的将空格字符写入到buffer中。所以UART的发送中断触发时，可以发现在buffer中还有一个空格字符，之后会将这个空格字符送出。
 

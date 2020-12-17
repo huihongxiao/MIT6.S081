@@ -2,19 +2,19 @@
 
 接下来我想看一下如何从Shell程序输出提示符“$ ”到Console。首先我们看init.c中的main函数，这是系统启动后运行的第一个进程。
 
-![](../.gitbook/assets/image%20%28377%29.png)
+![](../.gitbook/assets/image%20%28378%29.png)
 
 首先这个进程的main函数创建了一个代表Console的设备。这里通过mknod操作创建了console设备。因为这是第一个打开的文件，所以这里的文件描述符0。之后通过dup创建stdout和stderr。这里实际上通过复制文件描述符0，得到了另外两个文件描述符1，2。最终文件描述符0，1，2都用来代表Console。
 
 Shell程序首先打开文件描述符0，1，2。之后Shell向文件描述符2打印提示符“$ ”。
 
-![](../.gitbook/assets/image%20%28414%29.png)
+![](../.gitbook/assets/image%20%28416%29.png)
 
 尽管Console背后是UART设备，但是从应用程序来看，它就像是一个普通的文件。Shell程序只是向文件描述符2写了数据，它并不知道文件描述符2对应的是什么。在Unix系统中，设备是由文件表示。我们来看一下这里的fprintf是如何工作的。
 
 在printf.c文件中，代码只是调用了write系统调用，在我们的例子中，fd对应的就是文件描述符2，c是字符“$”。
 
-![](../.gitbook/assets/image%20%28404%29.png)
+![](../.gitbook/assets/image%20%28405%29.png)
 
 所以由Shell输出的每一个字符都会触发一个write系统调用。之前我们已经看过了write系统调用最终会走到sysfile.c文件的sys\_write函数。
 
@@ -22,7 +22,7 @@ Shell程序首先打开文件描述符0，1，2。之后Shell向文件描述符2
 
 这个函数中首先对参数做了检查，然后又调用了filewrite函数。filewrite函数位于file.c文件中。
 
-![](../.gitbook/assets/image%20%28411%29.png)
+![](../.gitbook/assets/image%20%28413%29.png)
 
 在filewrite函数中首先会判断文件描述符的类型。mknod生成的文件描述符属于设备（FD\_DEVICE），而对于设备类型的文件描述符，我们会为这个特定的设备执行设备相应的write函数。因为我们现在的设备是Console，所以我们知道这里会调用console.c中的consolewrite函数。
 
@@ -30,15 +30,15 @@ Shell程序首先打开文件描述符0，1，2。之后Shell向文件描述符2
 
 这里先通过either\_copyin将字符拷入，之后调用uartputc函数。uartputc函数将字符写入给UART设备，所以你可以认为consolewrite是一个UART驱动的top部分。uart.c文件中的uartputc函数会实际的打印字符。
 
-![](../.gitbook/assets/image%20%28432%29.png)
+![](../.gitbook/assets/image%20%28434%29.png)
 
 uartputc函数会稍微有趣一些。在UART的内部会有一个buffer用来发送数据，buffer的大小是32个字符。同时还有一个为consumer提供的读指针和为producer提供的写指针，来构建一个环形的buffer（注，或者可以认为是环形队列）。
 
-![](../.gitbook/assets/image%20%28381%29.png)
+![](../.gitbook/assets/image%20%28382%29.png)
 
 在我们的例子中，Shell是producer，所以需要调用uartputc函数。在函数中第一件事情是判断环形buffer是否已经满了。如果读写指针相同，那么buffer是空的，如果写指针加1等于读指针，那么buffer满了。当buffer是满的时候，向其写入数据是没有意义的，所以这里会sleep一段时间，将CPU出让给其他进程。当然，对于我们来说，buffer必然不是满的，因为提示符“$”是我们送出的第一个字符。所以代码会走到else，字符会被送到buffer中，更新写指针，之后再调用uartstart函数。
 
-![](../.gitbook/assets/image%20%28416%29.png)
+![](../.gitbook/assets/image%20%28418%29.png)
 
 uartstart就是通知设备执行操作。首先是检查当前设备是否空闲，如果空闲的话，我们会从buffer中读出数据，然后将数据写入到THR（Transmission Holding Register）发送寄存器。这里相当于告诉设备，我这里有一个字节需要你来发送。一旦数据送到了设备，系统调用会返回，用户应用程序Shell就可以继续执行。这里从内核返回到用户空间的机制与lec06的trap机制是一样的。
 
