@@ -16,7 +16,7 @@
 
 在trap.c的devintr函数中，首先会通过SCAUSE寄存器判断当前中断是否是来自于外设的中断。如果是的话，再调用plic\_claim函数来获取中断。
 
-![](../.gitbook/assets/image%20%28438%29.png)
+![](../.gitbook/assets/image%20%28440%29.png)
 
 plic\_claim函数位于plic.c文件中。在这个函数中，当前CPU核会告知PLIC，自己要处理中断，PLIC\_SCLAIM会将中断号返回，对于UART来说，返回的中断号是10。
 

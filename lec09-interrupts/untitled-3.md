@@ -30,7 +30,7 @@ Shell程序首先打开文件描述符0，1，2。之后Shell向文件描述符2
 
 这里先通过either\_copyin将字符拷入，之后调用uartputc函数。uartputc函数将字符写入给UART设备，所以你可以认为consolewrite是一个UART驱动的top部分。uart.c文件中的uartputc函数会实际的打印字符。
 
-![](../.gitbook/assets/image%20%28434%29.png)
+![](../.gitbook/assets/image%20%28435%29.png)
 
 uartputc函数会稍微有趣一些。在UART的内部会有一个buffer用来发送数据，buffer的大小是32个字符。同时还有一个为consumer提供的读指针和为producer提供的写指针，来构建一个环形的buffer（注，或者可以认为是环形队列）。
 

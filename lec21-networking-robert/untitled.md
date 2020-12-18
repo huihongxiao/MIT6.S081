@@ -18,7 +18,7 @@
 
 路由器是组成互联网的核心，路由器之间的链路，最终将多个局域网连接在了一起。
 
-![](../.gitbook/assets/image%20%28420%29.png)
+![](../.gitbook/assets/image%20%28421%29.png)
 
 现在MIT有一个主机需要与Stanford的一个主机通信，他们之间需要经过一系列的路由器，路由器之间的转发称为Routing。所以我们需要有一种方法让MIT的主机能够寻址到Stanford的主机，并且我们需要让连接了MIT的路由器能够在收到来自MIT的主机的packet时能够知道，这个packet是给Harvard的还是给Stanford的。
 
