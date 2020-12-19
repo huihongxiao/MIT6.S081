@@ -72,5 +72,6 @@
   * [21.5 四层网络 --- UDP](lec21-networking-robert/21.5-si-ceng-wang-luo-udp.md)
   * [21.6 网络协议栈（Network Stack）](lec21-networking-robert/21.6-wang-lu-xie-yi-zhan-network-stack.md)
   * [21.7 Ring Buffer](lec21-networking-robert/21.7.md)
-  * [21.8 Interrupt Livelock](lec21-networking-robert/21.8.md)
+  * [21.8 Receive Livelock](lec21-networking-robert/21.8.md)
+  * [21.9 如何解决Livelock](lec21-networking-robert/21.9-ru-he-jie-jue-livelock.md)
 
