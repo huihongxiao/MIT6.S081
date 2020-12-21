@@ -65,7 +65,7 @@
   * [9.8 UART读取键盘输入](lec09-interrupts/untitled-6.md)
   * [9.9 Interrupt的演进](lec09-interrupts/untitled-7.md)
 * [Lec10 Multiprocessors and locking](lec10-multiprocessors-and-locking/README.md)
-  * [Untitled](lec10-multiprocessors-and-locking/untitled.md)
+  * [10.1](lec10-multiprocessors-and-locking/untitled.md)
 * [Lec21 Networking \(Robert\)](lec21-networking-robert/README.md)
   * [21.1计算机网络概述](lec21-networking-robert/untitled.md)
   * [21.2 二层网络 --- Ethernet](lec21-networking-robert/21.2-er-ceng-wang-luo-ethernet.md)
