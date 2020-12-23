@@ -34,3 +34,15 @@ XV6有一个非常简单的数据结构会将所有的free page保存于列表�
 
 我们可以看到XV6已经运行起来，并且我们应该已经运行了一些对于kfree的调用，看起来一切运行都正常啊。
 
+接下来运行一下usertest，究竟能不能成功呢？有人想猜一下吗？
+
+> 学生回答：如果发生了race condition就会丢失一些内存page，如果没有发生就能成功。
+
+是的，race condition不一定会发生，让我们来运行一下usertest，看看究竟会发生什么。我这里通过qemu模拟了3个CPU核，这3个核是并行运行的。这里的测试有点慢，我们先切到课件中，待会回来看一下。但是如刚刚那位同学指出的，race condition不一定会发生，因为当每一个核在每一次调用kfree函数时，对于freelist的更新都是原子操作，这就像有锁一样，这个时候没有问题。有问题的是，当两个处理器，两个线程同时调用kfree，并且对于freelist交错执行时。
+
+我们来看一下usertest运行的结果，可以看到已经有panic了。所以的确有一些race condition触发了panic。但是还有一些其他的race condition，如前面的同学提到的，可能会导致丢失一些内存page，这样的话，usertest运行不会有问题。
+
+![](../.gitbook/assets/image%20%28454%29.png)
+
+所以race condition可以有不同的表现形式，它可能发生，也可能不发生。
+
