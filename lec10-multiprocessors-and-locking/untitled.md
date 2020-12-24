@@ -22,11 +22,11 @@
 
 在kalloc.c文件中的kfree函数中，会将释放的page保存于freelist中。
 
-![](../.gitbook/assets/image%20%28456%29.png)
+![](../.gitbook/assets/image%20%28457%29.png)
 
 XV6有一个非常简单的数据结构会将所有的free page保存于列表中。这样当kalloc函数需要一个内存page时，它可以从freelist中获取。从函数中可以看出，这里有一个锁kmem。在上锁的区间内程序更新了freelist。这里我们将锁的acquire和release注释上，这样原来在上锁区间内的代码就不再是原子执行的了。
 
-![](../.gitbook/assets/image%20%28454%29.png)
+![](../.gitbook/assets/image%20%28455%29.png)
 
 之后运行make qemu重新编译XV6，
 
@@ -42,17 +42,17 @@ XV6有一个非常简单的数据结构会将所有的free page保存于列表�
 
 我们来看一下usertest运行的结果，可以看到已经有panic了。所以的确有一些race condition触发了panic。但是还有一些其他的race condition，如前面的同学提到的，可能会导致丢失一些内存page，这样的话，usertest运行不会有问题。
 
-![](../.gitbook/assets/image%20%28458%29.png)
+![](../.gitbook/assets/image%20%28459%29.png)
 
 所以race condition可以有不同的表现形式，它可能发生，也可能不发生。但是在这里的usertests中，很明显发生了什么。让我们来分析一下哪里出错了。
 
 首先你们在脑海里应该有多个CPU核在运行，比如说CPU0在运行指令，CPU1也在运行指令，这两个CPU核都连接到同一个内存上。在前面的代码中，数据freelist位于内存中，它里面记录了2个内存page。假设两个CPU核都在大概相近的时间调用kfree。
 
-![](../.gitbook/assets/image%20%28451%29.png)
+![](../.gitbook/assets/image%20%28452%29.png)
 
 kfree函数接收一个物理地址pa作为参数，freelist是个单链表，kfree中将pa作为freelist的新的head，并更新freelist指向pa。当两个CPU都调用kfree时，CPU0想要释放一个page，CPU1也想要释放一个page，现在这两个page都需要加到freelist中。
 
-![](../.gitbook/assets/image%20%28460%29.png)
+![](../.gitbook/assets/image%20%28461%29.png)
 
 kfree中首先将对应page的变量r指向了当前的freelist（也就是单链表当前的head指针）。我们假设CPU0先运行，那么CPU0会将它的变量r的next指向当前的freelist。如果CPU1在同一时间运行，它可能在CPU0运行第二条指令（kmem.freelist = r）之前运行代码。所以它也会完成相同的事情，它会将自己的变量r的next指向当前的freelist。现在两个物理page对应的变量r都指向了同一个freelist。
 
@@ -69,13 +69,27 @@ kfree中首先将对应page的变量r指向了当前的freelist（也就是单�
 * acquire，接收指向lock的指针作为参数。acquire确保了只有一个进程可以获得锁。在任何时间，只会有一个进程能够成功的获取锁。
 * release，也接收指向lock的指针作为参数。在同一时间尝试获取锁的其他进程需要等待，直到当前进程release锁。
 
-![](../.gitbook/assets/image%20%28461%29.png)
+![](../.gitbook/assets/image%20%28463%29.png)
 
 在acquire和release之间，通常被称为critical section。
 
-![](../.gitbook/assets/image%20%28452%29.png)
+![](../.gitbook/assets/image%20%28453%29.png)
 
 之所以被称为critical section，是因为通常会在这里以原子的方式执行共享数据的更新。所以基本上来说，如果在acquire和release之间有多条指令，它们要么会一起执行，要么一条也不会执行。所以永远也不可能看到在critical section中的代码，如同在race condition中一样在多个CPU上交织的执行。所以这样就能避免race condition。
 
-现在的程序通常会有许多锁。实际上，XV6中就有很多的锁。
+现在的程序通常会有许多锁。实际上，XV6中就有很多的锁。为什么会有这么多锁呢？因为锁序列化了代码的执行。如果两个处理器想要进入到critical section中，但是只会有一个能成功进入，另一个处理器会在第一个处理器从critical section中退出之后再进入。所以这里完全没有并行执行。
+
+如果内核中只有一把大锁，我们暂时将之称为big kernel lock。基本上所有的系统调用都会被这把锁保护而被序列化。系统调用会按照这个流程处理，一个系统调用获取到了big kernel lock，完成自己的操作，之后释放这个big kernel lock，再返回到用户空间，之后下一个系统调用才能执行。所以如果我们有一个应用程序并行的调用多个系统调用，这些系统调用会串行的执行，因为我们只有一把锁。所以通常来说，例如XV6的程序会有多把锁，这样就能获得某种程度的并行。如果两个系统调用使用了两把不同的锁，那么它们就能完全的并行运行。
+
+![](../.gitbook/assets/image%20%28462%29.png)
+
+这里有几点非常重要。首先，并没有强制说是一定要使用锁，锁的使用完全是由程序决定的。如果你想要一段代码具备原子性，那么其实是由程序员决定是否增加锁的acquire和release。所以理解这一点很重要：代码不会自动加锁，程序员自己要确定好是否将锁与数据结构关联，并在适当的位置增加锁的acquire和release。
+
+很明显，锁限制了并发性，也限制了性能。那这带来了一个问题，什么时候才必须要加锁呢？我这里会给你们一个非常保守的规则，但这也是个很好的入门的规则。如果两个进程访问了一个共享的数据结构，其中一个会更新共享的数据结构，那么你对于这个共享的数据结构就需要加一把锁。
+
+![](../.gitbook/assets/image%20%28451%29.png)
+
+这是个保守的规则，如果你有一个数据结构可以被多个进程访问，其中一个进程会更新这个数据，那么你应该想到可能会产生race condition，你应该使用锁来确保race condition不会发生。
+
+但是同时，这条规则某种程度上来说又太多严格了。
 
