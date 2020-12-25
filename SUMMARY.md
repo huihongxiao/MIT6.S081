@@ -68,7 +68,7 @@
   * [10.1 为什么要使用锁？](lec10-multiprocessors-and-locking/untitled.md)
   * [10.2 锁的缺点 --- 影响性能](lec10-multiprocessors-and-locking/10.2-suo-de-que-dian-ying-xiang-xing-neng.md)
   * [10.3 什么时候使用锁？](lec10-multiprocessors-and-locking/10.3-shen-me-shi-hou-shi-yong-suo.md)
-  * [Untitled](lec10-multiprocessors-and-locking/untitled-1.md)
+  * [10.4 锁的特性和死锁](lec10-multiprocessors-and-locking/untitled-1.md)
 * [Lec21 Networking \(Robert\)](lec21-networking-robert/README.md)
   * [21.1计算机网络概述](lec21-networking-robert/untitled.md)
   * [21.2 二层网络 --- Ethernet](lec21-networking-robert/21.2-er-ceng-wang-luo-ethernet.md)
