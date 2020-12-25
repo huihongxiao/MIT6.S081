@@ -22,15 +22,15 @@
 
 在kalloc.c文件中的kfree函数中，会将释放的page保存于freelist中。
 
-![](../.gitbook/assets/image%20%28460%29.png)
+![](../.gitbook/assets/image%20%28464%29.png)
 
 XV6有一个非常简单的数据结构会将所有的free page保存于列表中。这样当kalloc函数需要一个内存page时，它可以从freelist中获取。从函数中可以看出，这里有一个锁kmem。在上锁的区间内程序更新了freelist。这里我们将锁的acquire和release注释上，这样原来在上锁区间内的代码就不再是原子执行的了。
 
-![](../.gitbook/assets/image%20%28458%29.png)
+![](../.gitbook/assets/image%20%28461%29.png)
 
 之后运行make qemu重新编译XV6，
 
-![](../.gitbook/assets/image%20%28451%29.png)
+![](../.gitbook/assets/image%20%28454%29.png)
 
 我们可以看到XV6已经运行起来，并且我们应该已经运行了一些对于kfree的调用，看起来一切运行都正常啊。
 
@@ -42,17 +42,17 @@ XV6有一个非常简单的数据结构会将所有的free page保存于列表�
 
 我们来看一下usertest运行的结果，可以看到已经有panic了。所以的确有一些race condition触发了panic。但是还有一些其他的race condition，如前面的同学提到的，可能会导致丢失一些内存page，这样的话，usertest运行不会有问题。
 
-![](../.gitbook/assets/image%20%28462%29.png)
+![](../.gitbook/assets/image%20%28467%29.png)
 
 所以race condition可以有不同的表现形式，它可能发生，也可能不发生。但是在这里的usertests中，很明显发生了什么。让我们来分析一下哪里出错了。
 
 首先你们在脑海里应该有多个CPU核在运行，比如说CPU0在运行指令，CPU1也在运行指令，这两个CPU核都连接到同一个内存上。在前面的代码中，数据freelist位于内存中，它里面记录了2个内存page。假设两个CPU核都在大概相近的时间调用kfree。
 
-![](../.gitbook/assets/image%20%28453%29.png)
+![](../.gitbook/assets/image%20%28456%29.png)
 
 kfree函数接收一个物理地址pa作为参数，freelist是个单链表，kfree中将pa作为freelist的新的head，并更新freelist指向pa。当两个CPU都调用kfree时，CPU0想要释放一个page，CPU1也想要释放一个page，现在这两个page都需要加到freelist中。
 
-![](../.gitbook/assets/image%20%28464%29.png)
+![](../.gitbook/assets/image%20%28470%29.png)
 
 kfree中首先将对应page的变量r指向了当前的freelist（也就是单链表当前的head指针）。我们假设CPU0先运行，那么CPU0会将它的变量r的next指向当前的freelist。如果CPU1在同一时间运行，它可能在CPU0运行第二条指令（kmem.freelist = r）之前运行代码。所以它也会完成相同的事情，它会将自己的变量r的next指向当前的freelist。现在两个物理page对应的变量r都指向了同一个freelist。
 

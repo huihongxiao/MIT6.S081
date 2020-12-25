@@ -1,4 +1,4 @@
-# Lec10 Multiprocessors and locking
+# Lec10 Multiprocessors and locking \(Frans\)
 
 准备工作，阅读【1】中第6章，和【2】
 
