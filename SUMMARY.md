@@ -71,7 +71,7 @@
   * [10.4 锁的特性和死锁](lec10-multiprocessors-and-locking/untitled-1.md)
   * [10.5 锁与性能](lec10-multiprocessors-and-locking/10.5-suo-yu-xing-neng.md)
   * [10.6 Case study --- UART](lec10-multiprocessors-and-locking/10.6-case-study-uart.md)
-  * [10.7 实现锁](lec10-multiprocessors-and-locking/10.7-shi-xian-suo.md)
+  * [10.7 自旋锁（Spin lock）](lec10-multiprocessors-and-locking/10.7-shi-xian-suo.md)
 * [Lec21 Networking \(Robert\)](lec21-networking-robert/README.md)
   * [21.1计算机网络概述](lec21-networking-robert/untitled.md)
   * [21.2 二层网络 --- Ethernet](lec21-networking-robert/21.2-er-ceng-wang-luo-ethernet.md)
