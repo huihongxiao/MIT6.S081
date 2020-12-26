@@ -8,13 +8,13 @@
 
 但是现在的处境有些令人失望，因为我们想要通过并行来获得高性能，我们想要并行的在不同的CPU核上执行系统调用，但是如果这些系统调用使用过了共享的数据，我们又需要使用锁，而锁会将这些系统调用串行执行，所以最后锁又限制了性能。
 
-![](../.gitbook/assets/image%20%28448%29.png)
+![](../.gitbook/assets/image%20%28449%29.png)
 
 所以现在我们处于一个矛盾的处境，出于正确性，我们需要使用锁，但是考虑到性能，锁又是极不好的。这就是现实，我们接下来会看看如何改善这个处境。
 
 以上是一个整体的介绍，但是回到最开始，为什么应用程序一定要使用多个CPU核来提升性能呢？这个实际上与过去几十年技术的发展有关。下面这张经典的图可以解释为什么。
 
-![](../.gitbook/assets/image%20%28447%29.png)
+![](../.gitbook/assets/image%20%28448%29.png)
 
 这张图有点复杂，X轴是时间，Y轴是单位，具体意义取决于特定的曲线。这张图中的核心点是，从2000年开始，CPU的时钟频率就没有再增加过了（绿线）。这样的结果是，CPU的单线程性能也达到了一个极限并且没有再增加过（蓝线）。但是另一方面，CPU中的晶体管数量在持续的增加 （深红色线）。所以现在不能通过使用单核来让代码运行的更快，要想运行的更快，唯一的选择就是使用多核。所以从2000年开始，处理器上核的数量开始在增加。所以现在如果一个应用程序想要提升性能，它不能只依赖单核，而是必须要依赖于多核。这也意味着，如果应用程序与内核交互的较为紧密，那么操作系统也需要高效的在多个CPU核上运行。这就是我们对内核并行在多个CPU核上运行感兴趣的直接原因。你们可能之前已经看过上面这张图，但我们这里回顾一下背景知识也是极好的。
 
@@ -22,15 +22,15 @@
 
 在kalloc.c文件中的kfree函数中，会将释放的page保存于freelist中。
 
-![](../.gitbook/assets/image%20%28464%29.png)
+![](../.gitbook/assets/image%20%28473%29.png)
 
 XV6有一个非常简单的数据结构会将所有的free page保存于列表中。这样当kalloc函数需要一个内存page时，它可以从freelist中获取。从函数中可以看出，这里有一个锁kmem。在上锁的区间内程序更新了freelist。这里我们将锁的acquire和release注释上，这样原来在上锁区间内的代码就不再是原子执行的了。
 
-![](../.gitbook/assets/image%20%28461%29.png)
+![](../.gitbook/assets/image%20%28469%29.png)
 
 之后运行make qemu重新编译XV6，
 
-![](../.gitbook/assets/image%20%28454%29.png)
+![](../.gitbook/assets/image%20%28460%29.png)
 
 我们可以看到XV6已经运行起来，并且我们应该已经运行了一些对于kfree的调用，看起来一切运行都正常啊。
 
@@ -42,17 +42,17 @@ XV6有一个非常简单的数据结构会将所有的free page保存于列表�
 
 我们来看一下usertest运行的结果，可以看到已经有panic了。所以的确有一些race condition触发了panic。但是还有一些其他的race condition，如前面的同学提到的，可能会导致丢失一些内存page，这样的话，usertest运行不会有问题。
 
-![](../.gitbook/assets/image%20%28467%29.png)
+![](../.gitbook/assets/image%20%28476%29.png)
 
 所以race condition可以有不同的表现形式，它可能发生，也可能不发生。但是在这里的usertests中，很明显发生了什么。让我们来分析一下哪里出错了。
 
 首先你们在脑海里应该有多个CPU核在运行，比如说CPU0在运行指令，CPU1也在运行指令，这两个CPU核都连接到同一个内存上。在前面的代码中，数据freelist位于内存中，它里面记录了2个内存page。假设两个CPU核都在大概相近的时间调用kfree。
 
-![](../.gitbook/assets/image%20%28456%29.png)
+![](../.gitbook/assets/image%20%28462%29.png)
 
 kfree函数接收一个物理地址pa作为参数，freelist是个单链表，kfree中将pa作为freelist的新的head，并更新freelist指向pa。当两个CPU都调用kfree时，CPU0想要释放一个page，CPU1也想要释放一个page，现在这两个page都需要加到freelist中。
 
-![](../.gitbook/assets/image%20%28470%29.png)
+![](../.gitbook/assets/image%20%28480%29.png)
 
 kfree中首先将对应page的变量r指向了当前的freelist（也就是单链表当前的head指针）。我们假设CPU0先运行，那么CPU0会将它的变量r的next指向当前的freelist。如果CPU1在同一时间运行，它可能在CPU0运行第二条指令（kmem.freelist = r）之前运行代码。所以它也会完成相同的事情，它会将自己的变量r的next指向当前的freelist。现在两个物理page对应的变量r都指向了同一个freelist。
 
