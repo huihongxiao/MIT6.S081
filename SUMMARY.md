@@ -73,6 +73,8 @@
   * [10.6 XV6中UART模块对于锁的使用](lec10-multiprocessors-and-locking/10.6-case-study-uart.md)
   * [10.7 自旋锁（Spin lock）的实现（一）](lec10-multiprocessors-and-locking/10.7-shi-xian-suo.md)
   * [10.8 自旋锁（Spin lock）的实现（二）](lec10-multiprocessors-and-locking/10.8-zi-xuan-suo-spin-lock-de-shi-xian-er.md)
+* [Lec11 Thread switching \(Robert\)](lec11-thread-switching-robert/README.md)
+  * [Untitled](lec11-thread-switching-robert/untitled.md)
 * [Lec21 Networking \(Robert\)](lec21-networking-robert/README.md)
   * [21.1计算机网络概述](lec21-networking-robert/untitled.md)
   * [21.2 二层网络 --- Ethernet](lec21-networking-robert/21.2-er-ceng-wang-luo-ethernet.md)
