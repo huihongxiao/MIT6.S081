@@ -66,7 +66,7 @@
   * [9.9 Interrupt的演进](lec09-interrupts/untitled-7.md)
 * [Lec10 Multiprocessors and locking \(Frans\)](lec10-multiprocessors-and-locking/README.md)
   * [10.1 为什么要使用锁？](lec10-multiprocessors-and-locking/untitled.md)
-  * [10.2 锁的缺点 --- 影响性能](lec10-multiprocessors-and-locking/10.2-suo-de-que-dian-ying-xiang-xing-neng.md)
+  * [10.2 锁如何避免race condition？](lec10-multiprocessors-and-locking/10.2-suo-de-que-dian-ying-xiang-xing-neng.md)
   * [10.3 什么时候使用锁？](lec10-multiprocessors-and-locking/10.3-shen-me-shi-hou-shi-yong-suo.md)
   * [10.4 锁的特性和死锁](lec10-multiprocessors-and-locking/untitled-1.md)
   * [10.5 锁与性能](lec10-multiprocessors-and-locking/10.5-suo-yu-xing-neng.md)
