@@ -77,6 +77,7 @@
   * [11.1 线程（Thread）概述](lec11-thread-switching-robert/untitled.md)
   * [11.2 线程调度（一）](lec11-thread-switching-robert/11.2-xian-cheng-tiao-du.md)
   * [11.3 线程调度（二）](lec11-thread-switching-robert/untitled-1.md)
+  * [11.4 线程调度（三）](lec11-thread-switching-robert/11.4-xian-cheng-tiao-du-san.md)
 * [Lec21 Networking \(Robert\)](lec21-networking-robert/README.md)
   * [21.1计算机网络概述](lec21-networking-robert/untitled.md)
   * [21.2 二层网络 --- Ethernet](lec21-networking-robert/21.2-er-ceng-wang-luo-ethernet.md)
