@@ -80,6 +80,8 @@
   * [11.4 XV6线程调度（三）](lec11-thread-switching-robert/11.4-xian-cheng-tiao-du-san.md)
   * [11.5 XV6线程调度代码（一）](lec11-thread-switching-robert/11.5-xv6-xian-cheng-tiao-du-dai-ma-yi.md)
   * [11.6 XV6线程调度代码（二）](lec11-thread-switching-robert/11.6-xv6-xian-cheng-tiao-du-dai-ma-er.md)
+  * [11.7 XV6线程调度代码（三）](lec11-thread-switching-robert/11.7-xv6-xian-cheng-tiao-du-dai-ma-san.md)
+* [Untitled](untitled.md)
 * [Lec21 Networking \(Robert\)](lec21-networking-robert/README.md)
   * [21.1计算机网络概述](lec21-networking-robert/untitled.md)
   * [21.2 二层网络 --- Ethernet](lec21-networking-robert/21.2-er-ceng-wang-luo-ethernet.md)
