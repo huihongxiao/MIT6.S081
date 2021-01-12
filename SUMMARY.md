@@ -82,7 +82,7 @@
   * [11.6 XV6线程切换 --- yield/sched函数](lec11-thread-switching-robert/11.6-xv6-xian-cheng-tiao-du-dai-ma-er.md)
   * [11.7 XV6线程切换 --- switch函数](lec11-thread-switching-robert/11.7-xv6-xian-cheng-qie-huan-switch-han-shu.md)
   * [11.8 XV6线程切换 --- scheduler函数](lec11-thread-switching-robert/11.8-xv6-xian-cheng-qie-huan-scheduler-han-shu.md)
-  * [11.7 XV6线程调度代码（三）](lec11-thread-switching-robert/11.7-xv6-xian-cheng-tiao-du-dai-ma-san.md)
+  * [11.9 XV6线程第一次调用switch函数](lec11-thread-switching-robert/11.7-xv6-xian-cheng-tiao-du-dai-ma-san.md)
 * [Untitled](untitled.md)
 * [Lec21 Networking \(Robert\)](lec21-networking-robert/README.md)
   * [21.1计算机网络概述](lec21-networking-robert/untitled.md)
