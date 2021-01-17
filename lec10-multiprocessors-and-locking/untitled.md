@@ -29,11 +29,11 @@
 
 kalloc.c文件中的kfree函数会将释放的page保存于freelist中。
 
-![](../.gitbook/assets/image%20%28527%29.png)
+![](../.gitbook/assets/image%20%28529%29.png)
 
 freelist是XV6中的一个非常简单的数据结构，它会将所有的可用的内存page保存于一个列表中。这样当kalloc函数需要一个内存page时，它可以从freelist中获取。从函数中可以看出，这里有一个锁kmem.lock，在加锁的区间内，代码更新了freelist。现在我们将锁的acquire和release注释上，这样原来在上锁区间内的代码就不再受锁保护，并且不再是原子执行的。
 
-![](../.gitbook/assets/image%20%28516%29.png)
+![](../.gitbook/assets/image%20%28517%29.png)
 
 之后运行make qemu重新编译XV6，
 
@@ -49,7 +49,7 @@ freelist是XV6中的一个非常简单的数据结构，它会将所有的可用
 
 我们来看一下usertest运行的结果，可以看到已经有panic了。所以的确有一些race condition触发了panic。但是如前面的同学提到的，还有一些其他的race condition会导致丢失内存page，这种情况下，usertest运行并不会有问题。
 
-![](../.gitbook/assets/image%20%28533%29.png)
+![](../.gitbook/assets/image%20%28535%29.png)
 
 所以race condition可以有不同的表现形式，并且它可能发生，也可能不发生。但是在这里的usertests中，很明显发生了什么。
 
