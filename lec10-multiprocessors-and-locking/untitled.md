@@ -8,13 +8,13 @@
 
 但是实际的情况有些令人失望，因为我们想要通过并行来获得高性能，我们想要并行的在不同的CPU核上执行系统调用，但是如果这些系统调用使用了共享的数据，我们又需要使用锁，而锁又会使得这些系统调用串行执行，所以最后锁反过来又限制了性能。
 
-![](../.gitbook/assets/image%20%28461%29.png)
+![](../.gitbook/assets/image%20%28463%29.png)
 
 所以现在我们处于一个矛盾的处境，出于正确性，我们需要使用锁，但是考虑到性能，锁又是极不好的。这就是现实，我们接下来会看看如何改善这个处境。
 
 以上是一个大概的介绍，但是回到最开始，为什么应用程序一定要使用多个CPU核来提升性能呢？这个实际上与过去几十年技术的发展有关，下面这张非常经典的图可以解释为什么。
 
-![](../.gitbook/assets/image%20%28458%29.png)
+![](../.gitbook/assets/image%20%28460%29.png)
 
 这张图有点复杂，X轴是时间，Y轴是单位，Y轴具体意义取决于特定的曲线。这张图中的核心点是，大概从2000年开始：
 
@@ -29,15 +29,15 @@
 
 kalloc.c文件中的kfree函数会将释放的page保存于freelist中。
 
-![](../.gitbook/assets/image%20%28533%29.png)
+![](../.gitbook/assets/image%20%28535%29.png)
 
 freelist是XV6中的一个非常简单的数据结构，它会将所有的可用的内存page保存于一个列表中。这样当kalloc函数需要一个内存page时，它可以从freelist中获取。从函数中可以看出，这里有一个锁kmem.lock，在加锁的区间内，代码更新了freelist。现在我们将锁的acquire和release注释上，这样原来在上锁区间内的代码就不再受锁保护，并且不再是原子执行的。
 
-![](../.gitbook/assets/image%20%28520%29.png)
+![](../.gitbook/assets/image%20%28522%29.png)
 
 之后运行make qemu重新编译XV6，
 
-![](../.gitbook/assets/image%20%28493%29.png)
+![](../.gitbook/assets/image%20%28495%29.png)
 
 我们可以看到XV6已经运行起来，并且我们应该已经运行了一些对于kfree的调用，看起来一切运行都正常啊。
 
@@ -49,7 +49,7 @@ freelist是XV6中的一个非常简单的数据结构，它会将所有的可用
 
 我们来看一下usertest运行的结果，可以看到已经有panic了。所以的确有一些race condition触发了panic。但是如前面的同学提到的，还有一些其他的race condition会导致丢失内存page，这种情况下，usertest运行并不会有问题。
 
-![](../.gitbook/assets/image%20%28539%29.png)
+![](../.gitbook/assets/image%20%28541%29.png)
 
 所以race condition可以有不同的表现形式，并且它可能发生，也可能不发生。但是在这里的usertests中，很明显发生了什么。
 
