@@ -2,7 +2,7 @@
 
 我们的目标是消灭掉lost wakeup。这可以通过消除下面的窗口时间来实现。
 
-![](../.gitbook/assets/image%20%28473%29.png)
+![](../.gitbook/assets/image%20%28474%29.png)
 
 首先我们必须要释放uart\_tx\_lock锁，因为中断需要获取这个锁。但是我们又不能在释放锁和进程将自己标记为SLEEPING之间留有窗口，这样的话，中断处理程序中的wakeup才能看到SLEEPING状态的进程，并将其唤醒。这样我们才可以避免lost wakeup的问题。所以，我们应该关闭这里的窗口。
 
