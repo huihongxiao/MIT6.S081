@@ -87,7 +87,7 @@
   * [13.1 线程切换过程中锁的限制](untitled/13.1.md)
   * [13.2 Sleep&Wakeup 接口](untitled/13.2.md)
   * [13.3 Lost wakeup](untitled/13.3-lost-wakeup.md)
-  * [13.4 Sleep&Wakeup 规则](untitled/untitled.md)
+  * [13.4 如何避免Lost wakeup](untitled/untitled.md)
   * [13.5 修复lost wakeup问题](untitled/13.5-xiu-fu-lost-wakeup-wen-ti.md)
   * [13.6 pipe中的sleep 和wakeup](untitled/13.6.md)
   * [13.7 进程退出](untitled/untitled-1.md)
