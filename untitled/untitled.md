@@ -1,48 +1,14 @@
-# 13.4 如何避免Lost wakeup
+# 13.4 Sleep&Wakeup 规则
 
-现在我们的目标是消灭掉lost wakeup。这可以通过消除下面的窗口时间来实现。
+我们的目标是消灭掉lost wakeup。这可以通过消除下面的窗口时间来实现。
 
 ![](../.gitbook/assets/image%20%28474%29.png)
 
-首先我们必须要释放uart\_tx\_lock锁，因为中断需要获取这个锁，但是我们又不能在释放锁和进程将自己标记为SLEEPING之间留有窗口。这样中断处理程序中的wakeup才能看到SLEEPING状态的进程，并将其唤醒，进而我们才可以避免lost wakeup的问题。所以，我们应该消除这里的窗口。
+首先我们必须要释放uart\_tx\_lock锁，因为中断需要获取这个锁。但是我们又不能在释放锁和进程将自己标记为SLEEPING之间留有窗口，这样的话，中断处理程序中的wakeup才能看到SLEEPING状态的进程，并将其唤醒。这样我们才可以避免lost wakeup的问题。所以，我们应该关闭这里的窗口。
 
-为了实现这个目的，我们需要将sleep函数设计的稍微复杂点。这里的解决方法是，即使sleep函数不需要知道你在等待什么事件，它还是需要你知道你在等待什么数据，并且传入一个用来保护你在等待数据的锁。sleep函数需要特定的条件才能执行，而sleep自己又不需要知道这个条件是什么。在我们的例子中，sleep函数执行的特定条件是tx\_done等于1。虽然sleep不需要知道tx\_done，但是它需要知道保护这个条件的锁，也就是这里的uart\_tx\_lock。在调用sleep的时候，锁还被当前线程持有，之后这个锁被传递给了sleep。
+为了实现这里的目的，我们需要将sleep函数接口设计的稍微复杂点。这里的解决方法是，即使sleep函数不知道你在等待什么事件，它还是需要你知道你在等待什么数据，并且传入一个用来保护你在等待数据的锁。所以sleep需要特定的条件，而sleep自己有不需要知道这个条件是什么。这里sleep的特定条件是tx\_done等于1。虽然sleep不知道特定的条件是什么，但是它需要知道保护这个条件的锁，也即是这里的uart\_tx\_lock。在调用sleep的时候，锁还被当前线程持有，之后这个锁被传递给了sleep。
 
-在接口层面，sleep承诺可以原子性的将进程设置成SLEEPING状态，同时释放锁。这样wakeup就不可能看到这样的场景：锁被释放了但是进程还没有进入到SLEEPING状态。所以sleep这里将释放锁和设置进程为SLEEPING状态这两个行为合并为一个原子操作。
+在接口层面，sleep承诺可以原子性的将进程设置成SLEEPING状态，同时释放锁。这样wakeup就不可能看到这样的场景：锁被释放了但是进程还没有进入到SLEEPING状态。所以sleep这里将释放锁和设置进程为SLEEPING状态这两个行为作为一个原子操作。
 
-所以我们需要有一个锁来保护sleep的条件，并且这个锁需要传递给sleep作为参数。更进一步的是，当调用wakeup时，锁必须被持有。如果程序员想要写出正确的代码，都必须遵守这些规则来使用sleep和wakeup。
-
-接下来我们看一下sleep和wakeup如何使用这一小块额外的信息（注，也就是传入给sleep函数的锁）和刚刚提到的规则，来避免lost wakeup。
-
-首先我们来看一下proc.c中的wakeup函数。
-
-![](../.gitbook/assets/image%20%28543%29.png)
-
-wakeup函数并不十分出人意料。它查看整个进程表单，对于每个进程首先加锁，这点很重要。之后查看进程的状态，如果进程当前是SLEEPING并且进程的channel与wakeup传入的channel相同，将进程的状态设置为RUNNABLE。最后再释放进程的锁。
-
-接下来我们忽略broken\_sleep，直接查看带有锁作为参数的sleep函数。
-
-![](../.gitbook/assets/image%20%28584%29.png)
-
-我们已经知道了sleep函数需要释放作为第二个参数传入的锁，这样中断处理程序才能获取锁。函数中第一件事情就是释放这个锁。当然在释放锁之后，我们会担心在这个时间点相应的wakeup会被调用并尝试唤醒当前进程，而当前进程还没有进入到SLEEPING状态。所以我们不能让wakeup在release锁之后执行。为了让它不在release锁之后执行，在release锁之前，sleep会获取即将进入SLEEPING状态的进程的锁。
-
-如果你还记得的话，wakeup在唤醒一个进程前，需要先获取进程的锁。所以在整个时间uartwrite检查条件之前到sleep函数中调用sched函数之间，这个线程一直持有了保护sleep条件的锁或者p-&gt;lock。让我回到UART的代码并强调一下这一点。
-
-![](../.gitbook/assets/image%20%28464%29.png)
-
-uartwrite在最开始获取了sleep的condition lock，并且一直持有condition lock知道调用sleep函数。所以它首先获取了condition lock，之后检查condition（注，也就是tx\_done等于0），之后在持有condition lock的前提下调用了sleep函数。此时wakeup不能做任何事情，wakeup现在甚至都不能被调用直到调用者能持有condition lock。所以现在wakeup必然还没有执行。
-
-sleep函数在释放condition lock之前，先获取了进程的锁。在释放了condition lock之后，wakeup就可以被调用了，但是除非wakeup获取了进程的锁，否则wakeup不能查看进程的状态。所以，在sleep函数中释放了condition lock之后，wakeup也还没有执行。
-
-在持有进程锁的时候，将进程的状态设置为SLEEPING并记录sleep channel，之后再调用sched函数，这个函数中会再调用switch函数（注，详见11.6），此时sleep函数中仍然持有了进程的锁，wakeup仍然不能做任何事情。
-
-如果你还记得的话，当我们从当前线程切换走时，调度器线程中会释放前一个进程的锁（注，详见11.8）。所以在调度器线程释放进程锁之后，wakeup才能终于获取进程的锁，发现它正在SLEEPING状态，并唤醒它。
-
-这里的效果是由之前定义的一些规则确保的，这些规则包括了：
-
-* 调用sleep时需要持有condition lock，这样sleep函数才能知道相应的锁。
-* sleep函数只有在获取到进程的锁p-&gt;lock之后，才能释放condition lock。
-* wakeup需要同时持有两个锁才能查看进程。
-
-这样的话，我们就不会再丢失任何一个wakeup，也就是说我们修复了lost wakeup的问题。
+这里必须要有一个锁来保护sleep的条件，并且这个锁需要传递给sleep作为参数。更进一步的是，当调用wakeup时，锁必须被持有。如果程序员想要写出正确的代码，这些都是必须遵守的规则来使用sleep和wakeup。
 
