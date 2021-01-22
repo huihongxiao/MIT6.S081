@@ -94,7 +94,6 @@
   * [13.8 kill系统调用](untitled/13.8-kill-xi-tong-tiao-yong.md)
 * [Lec14 File systems \(Frans\)](untitled-1/README.md)
   * [14.1](untitled-1/14.1.md)
-* [Untitled](untitled-2.md)
 * [Lec21 Networking \(Robert\)](lec21-networking-robert/README.md)
   * [21.1计算机网络概述](lec21-networking-robert/untitled.md)
   * [21.2 二层网络 --- Ethernet](lec21-networking-robert/21.2-er-ceng-wang-luo-ethernet.md)
