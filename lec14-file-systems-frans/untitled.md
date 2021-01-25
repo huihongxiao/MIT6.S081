@@ -2,7 +2,7 @@
 
 接下来我们通过查看XV6中的代码，更进一步的了解文件系统。因为我们前面已经分配了inode，我们先来看一下这是如何发生的。sysfile.c中有所有与文件系统相关的函数，分配inode发生在sys\_open函数中，因为这个函数会负责创建文件。
 
-![](../.gitbook/assets/image%20%28612%29.png)
+![](../.gitbook/assets/image%20%28613%29.png)
 
 在sys\_open函数中，会调用create函数。
 
@@ -10,7 +10,7 @@
 
 create函数中首先会解析路径名并找到最后一个目录，之后会查看文件是否存在，如果存在的话会返回错误。之后就会调用ialloc（inode allocate），这个函数会为文件x分配inode。ialloc函数位于fs.c文件中。
 
-![](../.gitbook/assets/image%20%28615%29.png)
+![](../.gitbook/assets/image%20%28616%29.png)
 
 以上就是ialloc函数，与XV6中的大部分函数一样，它很简单，但是又不是很高效。它会遍历所有可能的inode编号，找到inode所在的block，再看位于block中的inode数据的type字段。如果这是一个空闲的inode将其type字段设置为文件，这会将inode标记为已被分配。函数中的log\_write就是我们之前看到在console中有关写block的输出。这里的log\_write是我们看到的整个输出的第一个。
 
@@ -22,7 +22,7 @@ create函数中首先会解析路径名并找到最后一个目录，之后会�
 
 bread函数首先会调用bget函数，bget会为我们从buffer cache中找到block。让我们看一下bget函数
 
-![](../.gitbook/assets/image%20%28616%29.png)
+![](../.gitbook/assets/image%20%28617%29.png)
 
 这里的代码还有点复杂。我猜你们之前已经看过这里的代码，那么这里的代码在干嘛？
 
@@ -38,5 +38,13 @@ acquiresleep是另一种锁，我们称之为sleep lock，本质上来说它获�
 >
 > Frans教授：这里我想说几点；首先XV6中对bcache做任何修改的话，都必须持有bcache的锁；其次对block 33的cache做任何修改你需要持有block 33的sleep lock。所以在任何时候，release\(&bcache.lock\)之后，b-&gt;refcnt都大于0。block的cache只会在refcnt为0的时候才会被驱逐，任何时候refcnt大于0都不会驱逐block cache。所以当b-&gt;refcnt大于0的时候，block cache本身不会被buffer cache修改。这里的第二个锁，也就是block cache的sleep lock，是用来保护block cache的内容的。它确保了任何时候只有一个进程可以读写block cache。
 
-如果buffer cache中有两份block 33的cache将会出现问题。
+如果buffer cache中有两份block 33的cache将会出现问题。假设一个进程要更新inode19，另一个进程要更新inode20。如果它们都在处理block 33的cache，并且cache有两份，那么第一个进程可能持有一份cache并先将inode19写回到磁盘中，而另一个进程持有另一份cache会将inode20写回到磁盘中，并将inode19的更新覆盖掉。所以一个block只能在buffer cache中出现一次。你们在完成File system lab时，必须要维持buffer cache的这个属性。
+
+> 学生提问：如果多个进程都在使用同一个block的cache，然后有一个进程在修改block，并通过强制向磁盘写数据修改了block的cache，那么其他进程会看到什么结果？
+>
+> Frans教授：如果第一个进程结束了对block 33的读写操作，它会对block的cache调用brelse（block cache release）函数。
+
+![](../.gitbook/assets/image%20%28611%29.png)
+
+> 这个函数会对refcnt减1。
 
