@@ -2,15 +2,15 @@
 
 接下来我们通过查看XV6中的代码，更进一步的了解文件系统。因为我们前面已经分配了inode，我们先来看一下这是如何发生的。sysfile.c中有所有与文件系统相关的函数，分配inode发生在sys\_open函数中，因为这个函数会负责创建文件。
 
-![](../.gitbook/assets/image%20%28613%29.png)
+![](../.gitbook/assets/image%20%28615%29.png)
 
 在sys\_open函数中，会调用create函数。
 
-![](../.gitbook/assets/image%20%28610%29.png)
+![](../.gitbook/assets/image%20%28612%29.png)
 
 create函数中首先会解析路径名并找到最后一个目录，之后会查看文件是否存在，如果存在的话会返回错误。之后就会调用ialloc（inode allocate），这个函数会为文件x分配inode。ialloc函数位于fs.c文件中。
 
-![](../.gitbook/assets/image%20%28616%29.png)
+![](../.gitbook/assets/image%20%28619%29.png)
 
 以上就是ialloc函数，与XV6中的大部分函数一样，它很简单，但是又不是很高效。它会遍历所有可能的inode编号，找到inode所在的block，再看位于block中的inode数据的type字段。如果这是一个空闲的inode将其type字段设置为文件，这会将inode标记为已被分配。函数中的log\_write就是我们之前看到在console中有关写block的输出。这里的log\_write是我们看到的整个输出的第一个。
 
@@ -22,7 +22,7 @@ create函数中首先会解析路径名并找到最后一个目录，之后会�
 
 bread函数首先会调用bget函数，bget会为我们从buffer cache中找到block。让我们看一下bget函数
 
-![](../.gitbook/assets/image%20%28617%29.png)
+![](../.gitbook/assets/image%20%28620%29.png)
 
 这里的代码还有点复杂。我猜你们之前已经看过这里的代码，那么这里的代码在干嘛？
 
@@ -44,7 +44,11 @@ acquiresleep是另一种锁，我们称之为sleep lock，本质上来说它获�
 >
 > Frans教授：如果第一个进程结束了对block 33的读写操作，它会对block的cache调用brelse（block cache release）函数。
 
-![](../.gitbook/assets/image%20%28611%29.png)
+![](../.gitbook/assets/image%20%28613%29.png)
 
-> 这个函数会对refcnt减1。
+> 这个函数会对refcnt减1，并释放sleep lock。这意味着，如果有任何一个其他进程正在等待使用这个block cache，现在它就能获得这个block cache的sleep lock，并发现刚刚做的改动。
+>
+> 假设两个进程分别更新inode18和inode19，它们都位于block 33。如果第一个进程完成了更新，那么它对于inode18的更新是可见的。另一个进程只能分配到inode19，因为inode18已经被标记为已使用，任何之后的进程都可以看到第一个进程对它的更新。
+>
+> 这正是我们想看到的结果，如果一个进程创建了一个inode或者创建了一个文件，之后的进程执行读就应该看到那个文件。
 

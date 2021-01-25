@@ -99,6 +99,7 @@
   * [14.4 inode](lec14-file-systems-frans/14.4-inode.md)
   * [14.5 File system工作示例](lec14-file-systems-frans/14.5.md)
   * [14.6 XV6创建inode代码展示](lec14-file-systems-frans/untitled.md)
+  * [14.7 Sleep Lock](lec14-file-systems-frans/14.7-sleep-lock.md)
 * [Lec21 Networking \(Robert\)](lec21-networking-robert/README.md)
   * [21.1计算机网络概述](lec21-networking-robert/untitled.md)
   * [21.2 二层网络 --- Ethernet](lec21-networking-robert/21.2-er-ceng-wang-luo-ethernet.md)
