@@ -98,7 +98,7 @@
   * [14.3 How file system uses disk](lec14-file-systems-frans/14.3-how-file-system-uses-disk.md)
   * [14.4 inode](lec14-file-systems-frans/14.4-inode.md)
   * [14.5 File system工作示例](lec14-file-systems-frans/14.5-file-system-example.md)
-  * [14.6 XV6创建inode代码展示](lec14-file-systems-frans/untitled.md)
+  * [14.6 XV6创建inode代码展示](lec14-file-systems-frans/14.6-xv6-code-inode.md)
   * [14.7 Sleep Lock](lec14-file-systems-frans/14.7-sleep-lock.md)
 * [Lec21 Networking \(Robert\)](lec21-networking-robert/README.md)
   * [21.1计算机网络概述](lec21-networking-robert/untitled.md)
