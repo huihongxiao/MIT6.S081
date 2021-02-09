@@ -111,6 +111,7 @@
   * [15.8 File system challenges](lec15-crash-recovery-frans/15.8-file-system-challenges.md)
 * [Lec16  File system performance and fast crash recovery \(Robert\)](lec16-file-system-performance-and-fast-crash-recovery-robert/README.md)
   * [16.1 XV6 File system logging回顾](lec16-file-system-performance-and-fast-crash-recovery-robert/16.1.md)
+  * [16.2](lec16-file-system-performance-and-fast-crash-recovery-robert/16.2.md)
 * [Lec21 Networking \(Robert\)](lec21-networking-robert/README.md)
   * [21.1计算机网络概述](lec21-networking-robert/untitled.md)
   * [21.2 二层网络 --- Ethernet](lec21-networking-robert/21.2-er-ceng-wang-luo-ethernet.md)
