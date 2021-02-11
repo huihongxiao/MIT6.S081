@@ -113,6 +113,7 @@
   * [16.1 XV6 File system logging回顾](lec16-file-system-performance-and-fast-crash-recovery-robert/16.1.md)
   * [16.2 ext3 file system log format](lec16-file-system-performance-and-fast-crash-recovery-robert/16.2.md)
   * [16.3 ext3提升性能的方法](lec16-file-system-performance-and-fast-crash-recovery-robert/16.3-ext3-ti-sheng-xing-neng-de-fang-fa.md)
+  * [16.4](lec16-file-system-performance-and-fast-crash-recovery-robert/16.4.md)
 * [Lec21 Networking \(Robert\)](lec21-networking-robert/README.md)
   * [21.1计算机网络概述](lec21-networking-robert/untitled.md)
   * [21.2 二层网络 --- Ethernet](lec21-networking-robert/21.2-er-ceng-wang-luo-ethernet.md)
