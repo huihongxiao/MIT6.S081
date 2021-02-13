@@ -115,7 +115,7 @@
   * [16.3 ext3 file system log format](lec16-file-system-performance-and-fast-crash-recovery-robert/16.3-ext3-file-system-log-format.md)
   * [16.4 ext3如何提升性能](lec16-file-system-performance-and-fast-crash-recovery-robert/16.4-ext3-ru-he-ti-sheng-xing-neng.md)
   * [16.5 ext3文件系统调用格式](lec16-file-system-performance-and-fast-crash-recovery-robert/16.5-ext3-wen-jian-xi-tong-diao-yong-ge-shi.md)
-  * [16.5 ext3 transaction commit步骤](lec16-file-system-performance-and-fast-crash-recovery-robert/16.5-ext3-transaction-commit-bu-zhou.md)
+  * [16.6 ext3 transaction commit步骤](lec16-file-system-performance-and-fast-crash-recovery-robert/16.6-ext3-transaction-commit-bu-zhou.md)
   * [16.6 ext3 log恢复流程](lec16-file-system-performance-and-fast-crash-recovery-robert/16.6.md)
   * [16.7](lec16-file-system-performance-and-fast-crash-recovery-robert/16.7.md)
 * [Lec21 Networking \(Robert\)](lec21-networking-robert/README.md)
