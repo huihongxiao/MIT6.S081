@@ -1,4 +1,4 @@
-# Lec23 RCU
+# Lec23 RCU \(Robert\)
 
 准备工作，阅读【1】
 

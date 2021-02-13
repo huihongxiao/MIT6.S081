@@ -129,5 +129,5 @@
   * [21.7 Ring Buffer](lec21-networking-robert/21.7.md)
   * [21.8 Receive Livelock](lec21-networking-robert/21.8.md)
   * [21.9 如何解决Livelock](lec21-networking-robert/21.9-ru-he-jie-jue-livelock.md)
-* [Lec23 RCU](lec23-rcu.md)
+* [Lec23 RCU \(Robert\)](lec23-rcu-robert.md)
 
