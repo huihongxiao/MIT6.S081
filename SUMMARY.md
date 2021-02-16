@@ -130,5 +130,6 @@
   * [21.8 Receive Livelock](lec21-networking-robert/21.8.md)
   * [21.9 如何解决Livelock](lec21-networking-robert/21.9-ru-he-jie-jue-livelock.md)
 * [Lec23 RCU \(Robert\)](lec23-rcu-robert/README.md)
-  * [23.1](lec23-rcu-robert/23.1.md)
+  * [23.1 使用锁带来的问题](lec23-rcu-robert/23.1.md)
+  * [23.2 读写锁 \(Read-Write Lock\)](lec23-rcu-robert/23.2-du-xie-suo-readwrite-lock.md)
 
