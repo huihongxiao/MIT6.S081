@@ -132,4 +132,6 @@
 * [Lec23 RCU \(Robert\)](lec23-rcu-robert/README.md)
   * [23.1 使用锁带来的问题](lec23-rcu-robert/23.1.md)
   * [23.2 读写锁 \(Read-Write Lock\)](lec23-rcu-robert/23.2-du-xie-suo-readwrite-lock.md)
+  * [23.3 读写锁的问题](lec23-rcu-robert/23.3-du-xie-suo-de-wen-ti.md)
+  * [23.4](lec23-rcu-robert/23.4.md)
 
