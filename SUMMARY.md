@@ -133,5 +133,7 @@
   * [23.1 使用锁带来的问题](lec23-rcu-robert/23.1.md)
   * [23.2 读写锁 \(Read-Write Lock\)](lec23-rcu-robert/23.2-du-xie-suo-readwrite-lock.md)
   * [23.3 读写锁的问题](lec23-rcu-robert/23.3-du-xie-suo-de-wen-ti.md)
-  * [23.4 RCU实现（1）](lec23-rcu-robert/23.4.md)
+  * [23.4 RCU实现\(1\) - 基本实现](lec23-rcu-robert/23.4.md)
+  * [23.5 RCU实现\(2\) - Memory barrier](lec23-rcu-robert/23.5-rcu-shi-xian-2-memory-barrier.md)
+  * [23.6 RCU实现\(3\) -](lec23-rcu-robert/23.6-rcu-shi-xian-3.md)
 
