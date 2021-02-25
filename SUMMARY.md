@@ -135,5 +135,6 @@
   * [23.3 RCU实现\(1\) - 基本实现](lec23-rcu-robert/23.3-rcu-shi-xian-1-ji-ben-shi-xian.md)
   * [23.4 RCU实现\(2\) - Memory barrier](lec23-rcu-robert/23.4-rcu-shi-xian-2-memory-barrier.md)
   * [23.5 RCU实现\(3\) - 读写规则](lec23-rcu-robert/23.5-rcu-shi-xian-3-du-xie-xian-zhi.md)
-  * [23.6 RCU代码](lec23-rcu-robert/23.6-rcu-dai-ma.md)
+  * [23.6 RCU用例代码](lec23-rcu-robert/23.6-rcu-yong-li-dai-ma.md)
+  * [23.7 RCU总结](lec23-rcu-robert/23.7-rcu-zong-jie.md)
 
