@@ -1,6 +1,6 @@
 # 8.1 Page Fault Basics
 
-今天的课程内容是page fault，以及通过page fault可以实现的一些列虚拟内存功能。这里相关的功能有：
+今天的课程内容是page fault，以及通过page fault可以实现的一系列虚拟内存功能。这里相关的功能有：
 
 * lazy allocation，这是下一个lab的内容
 * copy-on-write fork
