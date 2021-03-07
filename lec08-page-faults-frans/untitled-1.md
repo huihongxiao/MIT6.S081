@@ -4,7 +4,7 @@
 
 ![](../.gitbook/assets/image%20%28335%29.png)
 
-当调用sbrk时，它的参数是整数，代表了你想要申请的page数量。sbrk会扩展stack的上边界（也就是会扩大stack）。
+当调用sbrk时，它的参数是整数，代表了你想要申请的page数量。sbrk会扩展heap的上边界（也就是会扩大heap）。
 
 ![](../.gitbook/assets/image%20%28332%29.png)
 
