@@ -123,6 +123,7 @@
   * [19.1 Why Virtual Machine?](lec19-virtual-machines-robert/19.1.md)
   * [19.2 Trap-and-Emulate --- Trap](lec19-virtual-machines-robert/19.2.md)
   * [19.3 Trap-and-Emulate --- Emulate](lec19-virtual-machines-robert/19.3-trap-and-emulate-emulate.md)
+  * [19.4 Trap-and-Emulate --- Page Table](lec19-virtual-machines-robert/19.4-trap-and-emulate-page-table.md)
 * [Lec21 Networking \(Robert\)](lec21-networking-robert/README.md)
   * [21.1计算机网络概述](lec21-networking-robert/untitled.md)
   * [21.2 二层网络 --- Ethernet](lec21-networking-robert/21.2-er-ceng-wang-luo-ethernet.md)
