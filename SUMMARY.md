@@ -124,7 +124,7 @@
   * [17.2 支持应用程序使用虚拟内存的系统调用](lec17-virtual-memory-for-applications-frans/17.2-zhi-chi-ying-yong-cheng-xu-shi-yong-xu-ni-nei-cun-de-xi-tong-tiao-yong.md)
   * [17.3 虚拟内存系统如何支持用户应用程序](lec17-virtual-memory-for-applications-frans/17.3.md)
   * [17.4 构建大的缓存表](lec17-virtual-memory-for-applications-frans/17.4.md)
-  * [17.5 Garbage Collector](lec17-virtual-memory-for-applications-frans/17.5-garbage-collector.md)
+  * [17.5 Baker's Real-Time Copying Garbage Collector](lec17-virtual-memory-for-applications-frans/17.5-garbage-collector.md)
 * [Lec19 Virtual Machines \(Robert\)](lec19-virtual-machines-robert/README.md)
   * [19.1 Why Virtual Machine?](lec19-virtual-machines-robert/19.1.md)
   * [19.2 Trap-and-Emulate --- Trap](lec19-virtual-machines-robert/19.2.md)
