@@ -129,6 +129,7 @@
   * [17.7 使用虚拟内存特性的GC代码展示](lec17-virtual-memory-for-applications-frans/17.7-shi-yong-xu-ni-nei-cun-te-xing-de-gc-dai-ma-zhan-shi.md)
 * [Lec18 OS organization \(Robert\)](lec18-os-organization-robert/README.md)
   * [18.1 Monolithic kernel](lec18-os-organization-robert/18.1-monolithic-kernel.md)
+  * [18.2 Micro kernel](lec18-os-organization-robert/18.2-micro-kernel.md)
 * [Lec19 Virtual Machines \(Robert\)](lec19-virtual-machines-robert/README.md)
   * [19.1 Why Virtual Machine?](lec19-virtual-machines-robert/19.1.md)
   * [19.2 Trap-and-Emulate --- Trap](lec19-virtual-machines-robert/19.2.md)
