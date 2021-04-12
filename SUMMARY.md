@@ -148,6 +148,7 @@
   * [20.2 高级编程语言实现操作系统的优劣势](lec20-kernels-and-hll-frans/20.2-gao-ji-bian-cheng-yu-yan-shi-xian-cao-zuo-xi-tong-de-you-lie-shi.md)
   * [20.3 高级编程语言选择 --- Golang](lec20-kernels-and-hll-frans/20.3.md)
   * [20.4 Biscuit](lec20-kernels-and-hll-frans/20.4-biscuit.md)
+  * [20.5 Heap exhaustion](lec20-kernels-and-hll-frans/20.5-heap-exhaustion.md)
 * [Lec21 Networking \(Robert\)](lec21-networking-robert/README.md)
   * [21.1计算机网络概述](lec21-networking-robert/untitled.md)
   * [21.2 二层网络 --- Ethernet](lec21-networking-robert/21.2-er-ceng-wang-luo-ethernet.md)
