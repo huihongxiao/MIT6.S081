@@ -6,5 +6,5 @@
 
 【2】[https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/proc.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/proc.c)
 
-【3】[https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/sleeplock.c](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/sleeplock.c)
+【3】[https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/swtch.S](https://github.com/mit-pdos/xv6-riscv/blob/riscv/kernel/swtch.S)
 
