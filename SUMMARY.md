@@ -153,6 +153,7 @@
   * [20.7 Evaluation: HLL benefits](lec20-kernels-and-hll-frans/20.7.md)
   * [20.8 Evaluation: HLL performance cost\(1\)](lec20-kernels-and-hll-frans/20.8-evaluation-hll-performance-cost.md)
   * [20.9 Evaluation: HLL performance cost\(2\)](lec20-kernels-and-hll-frans/20.9-evaluation-hll-performance-cost-2.md)
+  * [20.10 Should one use HLL for a new kernel?](lec20-kernels-and-hll-frans/20.10-should-one-use-hll-for-a-new-kernel.md)
 * [Lec21 Networking \(Robert\)](lec21-networking-robert/README.md)
   * [21.1计算机网络概述](lec21-networking-robert/untitled.md)
   * [21.2 二层网络 --- Ethernet](lec21-networking-robert/21.2-er-ceng-wang-luo-ethernet.md)
