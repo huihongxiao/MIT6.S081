@@ -171,6 +171,7 @@
   * [22.4 CPU caches](lec22-meltdown-robert/22.4-cpu-caches.md)
   * [22.5 Flush and Reload](lec22-meltdown-robert/22.5-flush-and-reload.md)
   * [22.6 Meltdown Attack](lec22-meltdown-robert/22.6-meltdown-attack.md)
+  * [22.7 Meltdown Fix](lec22-meltdown-robert/22.7-meltdown-fix.md)
 * [Lec23 RCU \(Robert\)](lec23-rcu-robert/README.md)
   * [23.1 使用锁带来的问题](lec23-rcu-robert/23.1-shi-yong-suo-dai-lai-de-wen-ti.md)
   * [23.2 读写锁 \(Read-Write Lock\)](lec23-rcu-robert/23.2-du-xie-suo-readwrite-lock.md)
