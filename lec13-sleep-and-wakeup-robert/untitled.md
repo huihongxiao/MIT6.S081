@@ -30,7 +30,7 @@ wakeup函数并不十分出人意料。它查看整个进程表单，对于每�
 
 ![](../.gitbook/assets/image%20%28464%29.png)
 
-uartwrite在最开始获取了sleep的condition lock，并且一直持有condition lock知道调用sleep函数。所以它首先获取了condition lock，之后检查condition（注，也就是tx\_done等于0），之后在持有condition lock的前提下调用了sleep函数。此时wakeup不能做任何事情，wakeup现在甚至都不能被调用直到调用者能持有condition lock。所以现在wakeup必然还没有执行。
+uartwrite在最开始获取了sleep的condition lock，并且一直持有condition lock直到调用sleep函数。所以它首先获取了condition lock，之后检查condition（注，也就是tx\_done等于0），之后在持有condition lock的前提下调用了sleep函数。此时wakeup不能做任何事情，wakeup现在甚至都不能被调用直到调用者能持有condition lock。所以现在wakeup必然还没有执行。
 
 sleep函数在释放condition lock之前，先获取了进程的锁。在释放了condition lock之后，wakeup就可以被调用了，但是除非wakeup获取了进程的锁，否则wakeup不能查看进程的状态。所以，在sleep函数中释放了condition lock之后，wakeup也还没有执行。
 
