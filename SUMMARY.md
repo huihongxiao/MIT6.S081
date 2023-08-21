@@ -68,7 +68,7 @@
   * [10.1 为什么要使用锁？](lec10-multiprocessors-and-locking/10.1-why-lock.md)
   * [10.2 锁如何避免race condition？](lec10-multiprocessors-and-locking/10.2-avoid-race-condition.md)
   * [10.3 什么时候使用锁？](lec10-multiprocessors-and-locking/10.3-when-use-lock.md)
-  * [10.4 锁的特性和死锁](lec10-multiprocessors-and-locking/1.5-locks-properties-and-deadlock.md)
+  * [10.4 锁的特性和死锁](lec10-multiprocessors-and-locking/10.4-locks-properties-and-deadlock.md)
   * [10.5 锁与性能](lec10-multiprocessors-and-locking/10.5-suo-yu-xing-neng.md)
   * [10.6 XV6中UART模块对于锁的使用](lec10-multiprocessors-and-locking/10.6-case-study-uart.md)
   * [10.7 自旋锁（Spin lock）的实现（一）](lec10-multiprocessors-and-locking/10.7-spin-lock-1.md)
