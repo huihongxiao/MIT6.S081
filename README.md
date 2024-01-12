@@ -24,7 +24,6 @@
 
 * 你发现了翻译的错误，可以向关联的[github](https://github.com/huihongxiao/MIT6.S081)提交PR
 * 你觉得我做的还不错，可以关注我的[知乎](https://www.zhihu.com/people/xiao-hong-hui-15)，并给我一个点赞。
-* 你正在找一份工作，并且想与和我一样的工程师共事，请联系我：honghui\_xiao@yeah.net
 * 还想学习其他MIT课程，我还做了一些其他的翻译：
   * [MIT6.824 - 分布式系统](https://mit-public-courses-cn-translatio.gitbook.io/mit6-824/)
   * [MIT6.829 - 计算机网络 ](https://mit-public-courses-cn-translatio.gitbook.io/mit6.829/)（work in progress）
